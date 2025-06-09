@@ -1,0 +1,14 @@
+{
+  "name": "eclypse-coming-soon-packages",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@trpc/server": "^11.3.1"
+  }
+}
