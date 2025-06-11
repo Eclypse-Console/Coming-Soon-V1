@@ -1,66 +1,48 @@
 # Logs
 logs
 *.log
-npm-debug.log*
-bun-debug.log*
+npm-debug.log
 yarn-debug.log*
 yarn-error.log*
-
-# Runtime data
-pids
-*.pid
-*.pid.lock
+pnpm-debug.log*
 
 # Dependency directories
 node_modules/
-frontend/node_modules/
-backend/node_modules/
 
-# Vite cache
-frontend/.vite/
-backend/.vite/
+# Vite build output
+dist/
+dist-ssr/
 
-# Bun build cache (if used)
-.bun/
-
-# TypeScript build cache
-*.tsbuildinfo
-**/node_modules/.tmp/
-
-# Bun test reports (if applicable)
-bun-*.xml
-*.bunlog
-
-# dotenv environment files
+# Local env files
 .env
 .env.*.local
+*.local
 
-# Editor files
-.DS_Store
-.idea/
-.vscode/
-*.swp
+# Vite cache
+.vite/
 
-# Coverage / output / cache
-coverage/
-dist/
-build/
-out/
-.next/
-.nuxt/
-.parcel-cache/
-.serverless/
-.temp/
-.cache/
-.docusaurus/
-.rts2_cache_*/
-.rpt2_cache/
+# Bun / Biome
+.bun/
+.biome/
 
-# MacOS and system files
+# TypeScript cache
+*.tsbuildinfo
+
+# tRPC dev artifacts
+.trpc/
+
+# System files
 .DS_Store
 Thumbs.db
 
-# Optional
-*.tgz
-.yarn-integrity
-.pnpm-debug.log
+# Editor settings
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Optional OS/IDE artifacts
+*.suo
+.ntvs
+*.njsproj
+*.sln
+*.sw?
