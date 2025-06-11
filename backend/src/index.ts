@@ -1,11 +1,33 @@
-import { createHTTPServer } from "@trpc/server/adapters/standalone";
+import express from "express";
+import cors from "cors";
 import dotenv from "dotenv";
-import { appRouter } from "./trpc/router";
+import { appRouter } from "@routers/index";
+import { createExpressMiddleware } from "@trpc/server/adapters/express";
+
+import { config } from "@packages/common/config.ts"
 
 dotenv.config();
 
-const port = Number(process.env.PORT || 2025);
+const app = express();
+const PORT = Number(config.PORT || process.env.PORT || 2025);
 
-createHTTPServer({ router: appRouter }).listen(port);
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+}));
 
-console.log(`🚀 Server running at http://localhost:${port}`);
+app.use(
+  "/trpc",
+  createExpressMiddleware({
+    router: appRouter,
+  })
+);
+
+app.listen(PORT, () => {
+  console.log(`🚀 Express + tRPC server running on http://localhost:${PORT}/trpc`);
+});
+
+
+export * from './routers/index';

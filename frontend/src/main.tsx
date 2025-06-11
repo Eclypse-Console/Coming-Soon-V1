@@ -2,10 +2,30 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
+import { trpc } from './lib/trpc';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { httpBatchLink } from '@trpc/client';
+import { config } from "../../packages/common/config.ts"
+
+
+const queryClient = new QueryClient();
+
+const trpcClient = trpc.createClient({
+  links: [
+    httpBatchLink({
+      url: `http://localhost:${config.PORT}/trpc`,
+    }),
+  ],
+});
+
 
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+  <trpc.Provider client={trpcClient} queryClient={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <StrictMode>
+        <App />
+      </StrictMode>
+    </QueryClientProvider>
+  </trpc.Provider>
 )
