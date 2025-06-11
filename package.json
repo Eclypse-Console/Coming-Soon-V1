@@ -9,8 +9,10 @@
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
- "scripts": {
-"dev": "concurrently \"bun --cwd backend start\" \"bun --cwd frontend dev\""
-}
-
+  "scripts": {
+    "dev": "concurrently \"bun --cwd backend start\" \"bun --cwd frontend dev\""
+  },
+  "dependencies": {
+    "glob": "^11.0.2"
+  }
 }
