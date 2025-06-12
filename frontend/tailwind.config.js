@@ -2,7 +2,12 @@
 module.exports = {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        akira: ['"Akira Expanded"', 'sans-serif'],
+        krona: ['Krona One', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 };

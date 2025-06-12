@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #000000;
+  position: relative;
+}
+
+#root::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(180deg);
+  mix-blend-mode: overlay;
+  background: #0303C061;
+  pointer-events: none;
+  z-index: 1000;
+  padding:0;
+}
+
+
+@font-face {
+  font-family: 'Akira Expanded';
+  src: url('/fonts/akira/AkiraExpanded.otf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
