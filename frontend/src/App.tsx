@@ -1,7 +1,5 @@
-import "./App.css";
-
-function App() {
+function mainPage() {
 	return <div className="bg-black w-full h-full" />;
 }
 
-export default App;
+export default mainPage;
