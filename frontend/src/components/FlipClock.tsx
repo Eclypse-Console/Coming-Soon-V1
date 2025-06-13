@@ -32,7 +32,7 @@ const FlipCard: React.FC<FlipCardProps> = ({ value }) => {
 			style={{ perspective: "2000px" }}
 		>
 			<div
-				className="absolute inset-0 rounded-2xl p-[1.52px] md:p-[2.1px] lg:p-[2.93px] z-0"
+				className="absolute inset-0 rounded-2xl p-[1.52px] md:p-[2.1px] lg:p-[2.53px] z-0"
 				style={{
 					background:
 						"linear-gradient(156.52deg, rgba(255, 255, 255, 0.4) 2.12%, rgba(255, 255, 255, 0.0001) 39%, rgba(255, 255, 255, 0.0001) 54.33%, rgba(255, 255, 255, 0.1) 93.02%)",
