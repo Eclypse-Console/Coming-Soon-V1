@@ -1,4 +1,4 @@
-import { publicProcedure, router } from "../trpc";
+import { publicProcedure, router } from "../trpc/index";
 import { z } from "zod";
 import { db, newsletterUser } from "@db/index";
 

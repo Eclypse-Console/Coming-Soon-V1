@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import { trpc } from './lib/trpc';
+import { trpc } from './lib/trpc/index';
 
 function App() {
 
@@ -15,13 +15,13 @@ function App() {
       setLoading(true);
       const response = await mutation.mutateAsync({ email });
       console.log('User added:', response);
+      alert("Done..✅")
     } catch (err) {
       console.error('Error adding user:', err);
       alert("Error aa gya")
     } finally {
       setLoading(false);
       setEmail('');
-      alert("Done..✅")
     }
   };
 
