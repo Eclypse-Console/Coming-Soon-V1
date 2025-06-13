@@ -1,30 +1,47 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "module": "ESNext",
     "moduleResolution": "bundler",
     "jsx": "react-jsx",
     "strict": true,
     "noEmit": true,
     "skipLibCheck": true,
-
+    "baseUrl": "./src",
+    "paths": {
+      "@lib/*": [
+        "lib/*"
+      ],
+      "@backend/*": [
+        "../../backend/*"
+      ],
+      "@packages/*": [
+        "../../packages/*"
+      ],
+    },
     /* Advanced bundler settings */
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
-
     /* Lint-level checks */
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-
     /* Incremental build cache (safe to keep for tooling) */
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.merged.tsbuildinfo",
-
     /* Vite global types */
-    "types": ["vite/client"]
+    "types": [
+      "vite/client"
+    ]
   },
-  "include": ["src", "vite.config.ts"]
+  "include": [
+    "src",
+    "vite.config.ts"
+  ]
 }
