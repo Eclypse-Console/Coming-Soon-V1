@@ -54,28 +54,36 @@ const NewsLetter = () => {
 										lineHeight: "150%",
 										fontFamily: "SF Pro, sans-serif",
 										fontWeight: "400",
-
 										cursor: "text"
-
-
-
 									}}
 									className="text-[#FFFFFF] focus:outline-none m-0 opacity-[70%]"
 									placeholder="example@email.com"
 									type="email"
 								/>
 							</div>
+							{/* Error message for desktop */}
+
+						</div>
+
+						{/* Error message for mobile */}
+						<div className="lg:hidden w-full flex justify-center mb-4 mt-0">
 							{errors.email && (
-								<p className="text-red-500 text-sm mt-2 text-center lg:text-left">
+								<p className="text-red-500 text-sm text-center">
 									{errors.email.message}
 								</p>
 							)}
 						</div>
+
 						<div className="w-full lg:w-auto flex justify-center items-center" style={{ height: "57.24px", marginTop: "-12px" }}>
-							<div>
-								<GlowingButton onClick={handleSubmit(onSubmit)} />
-							</div>
+							<GlowingButton onClick={handleSubmit(onSubmit)} />
 						</div>
+					</div>
+					<div className="hidden lg:block justify-start w-72">
+						{errors.email && (
+							<p className="text-red-500 text-sm mt-2 text-center lg:text-left">
+								{errors.email.message}
+							</p>
+						)}
 					</div>
 
 					<div className="w-full flex justify-center mt-8">
