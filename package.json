@@ -10,7 +10,8 @@
     "typescript": "^5.0.0"
   },
   "scripts": {
-    "dev": "concurrently \"bun --cwd backend start\" \"bun --cwd frontend dev\""
+    "dev": "concurrently \"bun --cwd backend start\" \"bun --cwd frontend dev\"",
+    "vercel-build": "cd frontend && npm install && npm run build"
   },
   "dependencies": {
     "glob": "^11.0.2"
