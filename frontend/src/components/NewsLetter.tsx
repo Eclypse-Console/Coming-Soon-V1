@@ -40,7 +40,7 @@ const NewsLetter = () => {
 									variant="default"
 									className="rounded-[40.61px]"
 									disabled={false}
-									borderWidth={1.31}
+									borderWidth={2}
 								/>
 								<input
 									{...register("email")}
@@ -50,7 +50,6 @@ const NewsLetter = () => {
 										borderRadius: "36.23px",
 										border: "2px solid #2E2E2E",
 										background: "#0E0E10",
-
 										fontSize: "16.35",
 										lineHeight: "150%",
 										fontFamily: "SF Pro, sans-serif",
@@ -67,7 +66,7 @@ const NewsLetter = () => {
 								</p>
 							)}
 						</div>
-						<div className="w-full lg:w-auto flex justify-center">
+						<div className="w-full lg:w-auto flex justify-center items-center" style={{ height: "57.24px", marginTop: "-5px" }}>
 							<div>
 								<GlowingButton />
 							</div>

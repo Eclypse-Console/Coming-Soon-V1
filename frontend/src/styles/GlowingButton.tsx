@@ -39,7 +39,7 @@ const GlowingButton = () => {
 						left: `${position.x - 37}px`,
 						top: `calc(50% - 38.25px)`, // vertically center glow
 						background: "rgba(229, 118, 49, 0.69)",
-						filter: "blur(79.14px)",
+						filter: "blur(39.14px)",
 						opacity: isHovered ? 1 : 0,
 						transition: "opacity 0.3s ease-in-out",
 					}}
@@ -55,56 +55,59 @@ const GlowingButton = () => {
 						top: `calc(50% - 32.67px)`, // vertically center glow
 						background: "rgba(242, 149, 52, 1)",
 						mixBlendMode: "plus-lighter",
-						filter: "blur(16.38px)",
+						filter: "blur(18.38px)",
 						opacity: isHovered ? 1 : 0,
 						transition: "opacity 0.3s ease-in-out",
 					}}
 				/>
 			</div>
 
-			{/* Background gradient */}
-			<div
-				className="absolute inset-0 -z-10"
-				style={{
-					width: "178px",
-					height: "63px",
-					top: "-2.02px",
-					left: "-4.78px",
-					borderRadius: "43.83px",
-					background:
-						"linear-gradient(90deg, rgba(232, 232, 232, 0), rgba(130, 130, 130, 0.77))",
-				}}
-			/>
-
-			{/* Main button */}
-			<button
-				type="button"
-				className="absolute w-[173px] h-[58px] bg-[#E8E8E8] flex items-center justify-center font-bold font-[SF Pro] -z-10"
-				style={{
-					top: "-0.02px",
-					left: "-2.78px",
-					borderRadius: "43.83px",
-					cursor: "pointer",
-				}}
-			>
-				<span
+			<div className="">
+				<div
+					className="absolute inset-0 -z-10"
 					style={{
-						opacity: "0.7",
-						fontFamily: "SF Pro, sans-serif",
-						width: "74px",
-						height: "29px",
-						top: "14px",
-						left: "50px",
-						fontWeight: "700",
-						fontSize: "19.13px",
-						lineHeight: "150%",
-						color: "#000000",
-						letterSpacing: "0",
+						width: "178px",
+						height: "63px",
+						top: "-2.02px",
+						left: "-4.78px",
+						borderRadius: "43.83px",
+						background:
+							"linear-gradient(90deg, rgba(232, 232, 232, 0), rgba(130, 130, 130, 0.77))",
+					}}
+				/>
+
+				{/* Main button */}
+				<button
+					type="button"
+					className="absolute w-[174px] h-[58px] bg-[#E8E8E8] flex items-center justify-center font-bold font-[SF Pro] -z-10"
+					style={{
+						top: "-0.02px",
+						left: "-2.78px",
+						borderRadius: "43.83px",
+						cursor: "pointer",
 					}}
 				>
-					Sign Up
-				</span>
-			</button>
+					<span
+						style={{
+							opacity: "0.7",
+							fontFamily: "SF Pro, sans-serif",
+							width: "74px",
+							height: "29px",
+							top: "14px",
+							left: "50px",
+							fontWeight: "700",
+							fontSize: "19.13px",
+							lineHeight: "150%",
+							color: "#000000",
+							letterSpacing: "0",
+						}}
+					>
+						Sign Up
+					</span>
+				</button>
+			</div>
+			{/* Background gradient */}
+
 		</div>
 	);
 };
