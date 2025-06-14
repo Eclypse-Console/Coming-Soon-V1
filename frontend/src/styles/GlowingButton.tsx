@@ -1,7 +1,11 @@
 import React, { useRef, useState } from "react";
 
-const GlowingButton = () => {
-	const [position, setPosition] = useState({ x: 55, y: 31.5 }); // y centered by default
+interface GlowingButtonProps {
+	onClick?: () => void;
+}
+
+const GlowingButton = ({ onClick }: GlowingButtonProps) => {
+	const [position, setPosition] = useState({ x: 89, y: 31.5 }); // x centered by default (178px width / 2)
 	const [isHovered, setIsHovered] = useState(false);
 	const buttonRef = useRef<HTMLDivElement>(null);
 
@@ -26,10 +30,10 @@ const GlowingButton = () => {
 			onMouseMove={handleMouseMove}
 			onMouseEnter={() => setIsHovered(true)}
 			onMouseLeave={() => setIsHovered(false)}
-			className="relative w-[178px] h-[63px]"
+			className="relative w-[178px] h-[63px] cursor-pointer flex items-center justify-center"
 		>
 			{/* Glow effects container */}
-			<div className="absolute inset-0 pointer-events-none">
+			<div className="absolute inset-0 pointer-events-none z-20">
 				<div
 					className="rounded-full transition-all duration-300"
 					style={{
@@ -42,6 +46,7 @@ const GlowingButton = () => {
 						filter: "blur(39.14px)",
 						opacity: isHovered ? 1 : 0,
 						transition: "opacity 0.3s ease-in-out",
+						
 					}}
 				/>
 
@@ -58,13 +63,14 @@ const GlowingButton = () => {
 						filter: "blur(18.38px)",
 						opacity: isHovered ? 1 : 0,
 						transition: "opacity 0.3s ease-in-out",
+						
 					}}
 				/>
 			</div>
 
-			<div className="">
+			<div className="relative">
 				<div
-					className="absolute inset-0 -z-10"
+					className="absolute inset-0"
 					style={{
 						width: "178px",
 						height: "63px",
@@ -73,18 +79,22 @@ const GlowingButton = () => {
 						borderRadius: "43.83px",
 						background:
 							"linear-gradient(90deg, rgba(232, 232, 232, 0), rgba(130, 130, 130, 0.77))",
+						zIndex: 0
 					}}
 				/>
 
 				{/* Main button */}
 				<button
-					type="button"
-					className="absolute w-[174px] h-[58px] bg-[#E8E8E8] flex items-center justify-center font-bold font-[SF Pro] -z-10"
+					type="submit"
+					onClick={onClick}
+					className="absolute w-[174px] h-[58px] bg-[#E8E8E8] flex items-center justify-center font-bold font-[SF Pro] z-30 cursor-pointer"
 					style={{
 						top: "-0.02px",
 						left: "-2.78px",
 						borderRadius: "43.83px",
-						cursor: "pointer",
+						backgroundColor: "#E8E8E8",
+						position: "relative",
+						zIndex: 20
 					}}
 				>
 					<span
@@ -106,8 +116,6 @@ const GlowingButton = () => {
 					</span>
 				</button>
 			</div>
-			{/* Background gradient */}
-
 		</div>
 	);
 };

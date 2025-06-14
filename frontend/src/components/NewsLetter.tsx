@@ -53,7 +53,8 @@ const NewsLetter = () => {
 										fontSize: "16.35",
 										lineHeight: "150%",
 										fontFamily: "SF Pro, sans-serif",
-										fontWeight: "400"
+										fontWeight: "400",
+										cursor: "text"
 									}}
 									className="text-[#FFFFFF] focus:outline-none m-0 opacity-[70%]"
 									placeholder="example@email.com"
@@ -68,7 +69,7 @@ const NewsLetter = () => {
 						</div>
 						<div className="w-full lg:w-auto flex justify-center items-center" style={{ height: "57.24px", marginTop: "-5px" }}>
 							<div>
-								<GlowingButton />
+								<GlowingButton onClick={handleSubmit(onSubmit)} />
 							</div>
 						</div>
 					</div>
