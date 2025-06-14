@@ -231,7 +231,7 @@ const FlipClock: React.FC = () => {
 	}, []);
 
 	return (
-		<div className="flex flex-col">
+		<div className="flex flex-col overlay-effect">
 			<div
 				className="w-[321px] h-[45px] md:w-[460px] md:h-[65px] lg:w-[571px] lg:h-[80px] flex items-center justify-center mx-auto text-[36px] md:text-[50px] lg:text-[64px] mt-[100px]"
 				style={{
@@ -258,7 +258,7 @@ const FlipClock: React.FC = () => {
 					<div key={key} className="flex flex-col items-center">
 						<FlipCard value={time[key as keyof TimeState]} />
 						<div
-							className="mt-2 w-[45px] h-[18px] md:w-[53px] md:h-[22px] lg:w-[61px] lg:h-6 opacity-60 text-white text-center text-[12px] md:text-[14px] lg:text-[16.25px] flex items-center justify-center mt-[10px] md:mt-[15px] lg:mt-[20px]"
+							className="mt-2 w-[45px] h-[18px] md:w-[53px] md:h-[22px] lg:w-[61px] lg:h-6 opacity-60 text-white text-center text-[12px] md:text-[14px] lg:text-[16.25px] flex items-center justify-center md:mt-[15px] lg:mt-[20px]"
 							style={{
 								fontFamily: "Akira Expanded",
 								fontWeight: 800,

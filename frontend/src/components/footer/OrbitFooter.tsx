@@ -18,7 +18,7 @@ const OrbitFooter: React.FC<Props> = ({ icons, breakpoints }) => {
         setActiveIcons((prev) => [...prev, index]);
       }, delayInMs);
     });
-  }, []);
+  }, [icons]);
 
 
   const pathId = "orbitPath";
@@ -66,7 +66,7 @@ const OrbitFooter: React.FC<Props> = ({ icons, breakpoints }) => {
 
           <foreignObject width="100px" height="100px" className=" size-28 flex items-center justify-center rounded-full" y={-45}>
             <a target="_blank" key={iconObj.url} href={iconObj.url}
-              className={` h-[53px] md:h-[60px] lg:h-[72px]  w-[53px] md:h-[60px] lg:w-[72px] footor-icons rounded-full flex items-center justify-center mt-[25px] md:mt-[20px] lg:mt-[15px]  mx-auto hover:scale-125 `}
+              className={` h-[53px] md:h-[60px] lg:h-[72px]  w-[53px] lg:w-[72px] footor-icons rounded-full flex items-center justify-center mt-[25px] md:mt-[20px] lg:mt-[15px]  mx-auto hover:scale-125 `}
             >
               {iconObj.icon}
             </a>
