@@ -46,7 +46,7 @@ const GlowingButton = ({ onClick }: GlowingButtonProps) => {
 						filter: "blur(39.14px)",
 						opacity: isHovered ? 1 : 0,
 						transition: "opacity 0.3s ease-in-out",
-						
+
 					}}
 				/>
 
@@ -63,7 +63,7 @@ const GlowingButton = ({ onClick }: GlowingButtonProps) => {
 						filter: "blur(18.38px)",
 						opacity: isHovered ? 1 : 0,
 						transition: "opacity 0.3s ease-in-out",
-						
+
 					}}
 				/>
 			</div>
@@ -73,7 +73,7 @@ const GlowingButton = ({ onClick }: GlowingButtonProps) => {
 					className="absolute inset-0"
 					style={{
 						width: "178px",
-						height: "63px",
+						height: "67px",
 						top: "-2.02px",
 						left: "-4.78px",
 						borderRadius: "43.83px",
@@ -87,7 +87,7 @@ const GlowingButton = ({ onClick }: GlowingButtonProps) => {
 				<button
 					type="submit"
 					onClick={onClick}
-					className="absolute w-[174px] h-[58px] bg-[#E8E8E8] flex items-center justify-center font-bold font-[SF Pro] z-30 cursor-pointer"
+					className="absolute w-[174px] h-[63px] bg-[#E8E8E8] flex items-center justify-center font-bold font-[SF Pro] z-30 cursor-pointer"
 					style={{
 						top: "-0.02px",
 						left: "-2.78px",
