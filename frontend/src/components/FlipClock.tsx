@@ -231,7 +231,7 @@ const FlipClock: React.FC = () => {
 	}, []);
 
 	return (
-		<div className="flex flex-col overlay-effect">
+		<div className="flex flex-col overlay-effect lg:mt-48">
 			<div
 				className="w-[321px] h-[45px] md:w-[460px] md:h-[65px] lg:w-[571px] lg:h-[80px] flex items-center justify-center mx-auto text-[36px] md:text-[50px] lg:text-[64px] mt-[100px]"
 				style={{
