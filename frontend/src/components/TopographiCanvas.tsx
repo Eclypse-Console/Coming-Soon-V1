@@ -4,7 +4,7 @@ const topographicBg = '/assets/svg/topographic-bg.svg';
 
 const MIN_OPACITY = 0.01;
 const MAX_OPACITY = 0.25;
-const FADE_IN_DURATION = 400;
+const FADE_IN_DURATION = 200;
 const FADE_OUT_DURATION = 3000;
 const THROTTLE_INTERVAL = 50;
 const MAX_POINTS = 15;
