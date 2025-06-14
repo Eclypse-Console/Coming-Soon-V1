@@ -27,12 +27,12 @@ const NewsLetter = () => {
 	};
 
 	return (
-		<div className="flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8">
-			<form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-4xl">
+		<div className="relative w-full py-16 px-4 sm:px-6 lg:px-8 z-10">
+			<form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-4xl mx-auto">
 				<div className="flex flex-col items-center">
 					<div className="flex flex-col lg:flex-row items-center gap-4 w-full justify-center">
 						<div className="flex flex-col">
-							<div className="relative" style={{ width: "375.83px" }}>
+							<div className="relative mb-4" style={{ width: "369px", height: "57.24px" }}>
 								<GlowingEffect
 									spread={50}
 									glow={true}
@@ -46,18 +46,18 @@ const NewsLetter = () => {
 								<input
 									{...register("email")}
 									style={{
-										width: "375.83px",
-										height: "64.17px",
-										borderRadius: "40.61px",
-										border: "1.31px solid #2E2E2E",
+										width: "369px",
+										height: "57.24px",
+										borderRadius: "36.23px",
+										border: "2px solid #2E2E2E",
 										background: "#0E0E10",
-										paddingLeft: "30px",
-										fontSize: "18px",
-										lineHeight: "1.5",
-										position: "relative",
-										zIndex: 1,
+
+										fontSize: "16.35",
+										lineHeight: "150%",
+										fontFamily: "SF Pro, sans-serif",
+										fontWeight: "400"
 									}}
-									className="text-white focus:outline-none"
+									className="text-[#FFFFFF] focus:outline-none m-0 opacity-[70%]"
 									placeholder="example@email.com"
 									type="email"
 								/>
@@ -69,9 +69,9 @@ const NewsLetter = () => {
 							)}
 						</div>
 						<div className="w-full lg:w-auto flex justify-center">
-							<button type="submit">
+							<div>
 								<GlowingButton />
-							</button>
+							</div>
 						</div>
 					</div>
 
@@ -84,8 +84,8 @@ const NewsLetter = () => {
 								fontWeight: "400",
 								fontSize: "16.25px",
 								letterSpacing: "0%",
-								width: "422px",
-								height: "48px",
+								width: "352px",
+								height: "42px",
 								display: "flex",
 								alignItems: "center",
 								justifyContent: "center",

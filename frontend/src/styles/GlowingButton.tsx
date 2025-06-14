@@ -1,8 +1,7 @@
-import React from "react";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 
 const GlowingButton = () => {
-	const [position, setPosition] = useState({ x: 55, y: 0 });
+	const [position, setPosition] = useState({ x: 55, y: 31.5 }); // y centered by default
 	const [isHovered, setIsHovered] = useState(false);
 	const buttonRef = useRef<HTMLDivElement>(null);
 
@@ -29,8 +28,43 @@ const GlowingButton = () => {
 			onMouseLeave={() => setIsHovered(false)}
 			className="relative w-[178px] h-[63px]"
 		>
+			{/* Glow effects container */}
+			<div className="absolute inset-0 pointer-events-none">
+				<div
+					className="rounded-full transition-all duration-300"
+					style={{
+						position: "absolute",
+						width: "74.11px",
+						height: "76.5px",
+						left: `${position.x - 37}px`,
+						top: `calc(50% - 38.25px)`, // vertically center glow
+						background: "rgba(229, 118, 49, 0.69)",
+						filter: "blur(79.14px)",
+						opacity: isHovered ? 1 : 0,
+						transition: "opacity 0.3s ease-in-out",
+					}}
+				/>
+
+				<div
+					className="rounded-full transition-all duration-300"
+					style={{
+						position: "absolute",
+						width: "63.75px",
+						height: "65.34px",
+						left: `${position.x - 31.875}px`,
+						top: `calc(50% - 32.67px)`, // vertically center glow
+						background: "rgba(242, 149, 52, 1)",
+						mixBlendMode: "plus-lighter",
+						filter: "blur(16.38px)",
+						opacity: isHovered ? 1 : 0,
+						transition: "opacity 0.3s ease-in-out",
+					}}
+				/>
+			</div>
+
+			{/* Background gradient */}
 			<div
-				className="absolute"
+				className="absolute inset-0 -z-10"
 				style={{
 					width: "178px",
 					height: "63px",
@@ -42,9 +76,10 @@ const GlowingButton = () => {
 				}}
 			/>
 
+			{/* Main button */}
 			<button
 				type="button"
-				className="absolute w-[173px] h-[58px] bg-[#E8E8E8] flex items-center justify-center font-bold font-[SF Pro]"
+				className="absolute w-[173px] h-[58px] bg-[#E8E8E8] flex items-center justify-center font-bold font-[SF Pro] -z-10"
 				style={{
 					top: "-0.02px",
 					left: "-2.78px",
@@ -70,41 +105,6 @@ const GlowingButton = () => {
 					Sign Up
 				</span>
 			</button>
-
-			<div className="absolute pointer-events-none">
-				<div
-					className="rounded-full transition-all duration-300"
-					style={{
-						position: "absolute",
-						width: "74.11px",
-						height: "76.5px",
-						left: `${position.x - 37}px`,
-						top: "-10.36px",
-						background: "rgba(229, 118, 49, 0.69)",
-						filter: "blur(79.14px)",
-						opacity: isHovered ? 1 : 0,
-						transform: `translateX(${isHovered ? "0" : "0"})`,
-						transition: "opacity 0.3s ease-in-out",
-					}}
-				/>
-
-				<div
-					className="rounded-full transition-all duration-300"
-					style={{
-						position: "absolute",
-						width: "63.75px",
-						height: "65.34px",
-						left: `${position.x - 37}px`,
-						top: "-4.78px",
-						background: "rgba(242, 149, 52, 1)",
-						mixBlendMode: "plus-lighter",
-						filter: "blur(16.38px)",
-						opacity: isHovered ? 1 : 0,
-						transform: `translateX(${isHovered ? "0" : "0"})`,
-						transition: "opacity 0.3s ease-in-out",
-					}}
-				/>
-			</div>
 		</div>
 	);
 };
