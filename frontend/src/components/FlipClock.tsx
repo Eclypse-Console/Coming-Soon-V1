@@ -233,7 +233,7 @@ const FlipClock: React.FC = () => {
 	return (
 		<div className="flex flex-col overlay-effect">
 			<div
-				className="w-[321px] h-[45px] md:w-[460px] md:h-[65px] lg:w-[571px] lg:h-[80px] flex items-center justify-center mx-auto text-[36px] md:text-[50px] lg:text-[64px]"
+				className="w-[321px] h-[45px] md:w-[460px] md:h-[65px] lg:w-[571px] lg:h-[80px] flex items-center justify-center mx-auto text-[36px] md:text-[50px] lg:text-[64px] mt-[100px]"
 				style={{
 					fontFamily: "Krona One",
 					fontWeight: 400,
@@ -248,30 +248,17 @@ const FlipClock: React.FC = () => {
 				Coming Soon
 			</div>
 
-			<div className="flip-clock-container w-[340px] h-[83.82px] md:w-[550px] md:h-[135px] lg:w-[657.52px] lg:h-[162.1px] mt-[50px] mx-auto overflow-hidden">
-				<motion.div
-					className="flip-clock flex gap-3 md:gap-5 lg:gap-6 items-center justify-center w-full h-full"
-					initial={{ opacity: 0, scale: 0.8, y: 50 }}
-					animate={{ opacity: 1, scale: 1, y: 0 }}
-					transition={{ duration: 1.2, ease: "easeOut" }}
-				>
-					<FlipCard value={time.years} />
-					<FlipCard value={time.months} />
-					<FlipCard value={time.days} />
-				</motion.div>
-			</div>
-
-			<div className="relative mt-4">
-				{["YEAR", "MONTH", "DAY"].map((label, i) => {
-					const positions = [
-						["left-[33px]", "md:left-[62px]", "lg:left-[76px]"],
-						["left-[150px]", "md:left-[250px]", "lg:left-[298px]"],
-						["left-[263px]", "md:left-[438px]", "lg:left-[522px]"],
-					];
-					return (
+			<motion.div
+				className="flip-clock flex gap-3 md:gap-5 lg:gap-6 items-end justify-center w-full h-full mt-[50px]"
+				initial={{ opacity: 0, scale: 0.8, y: 50 }}
+				animate={{ opacity: 1, scale: 1, y: 0 }}
+				transition={{ duration: 1.2, ease: "easeOut" }}
+			>
+				{["years", "months", "days"].map((key) => (
+					<div key={key} className="flex flex-col items-center">
+						<FlipCard value={time[key as keyof TimeState]} />
 						<div
-							key={label}
-							className={`absolute ${positions[i][0]} ${positions[i][1]} ${positions[i][2]} w-[45px] h-[18px] md:w-[53px] md:h-[22px] lg:w-[61px] lg:h-6 opacity-60 text-white flex items-center justify-center text-center text-[12px] md:text-[14px] lg:text-[16.25px]`}
+							className="mt-2 w-[45px] h-[18px] md:w-[53px] md:h-[22px] lg:w-[61px] lg:h-6 opacity-60 text-white text-center text-[12px] md:text-[14px] lg:text-[16.25px] flex items-center justify-center mt-[10px] md:mt-[15px] lg:mt-[20px]"
 							style={{
 								fontFamily: "Akira Expanded",
 								fontWeight: 800,
@@ -279,13 +266,14 @@ const FlipClock: React.FC = () => {
 								letterSpacing: "0%",
 							}}
 						>
-							{label}
+							{key.toUpperCase()}
 						</div>
-					);
-				})}
-			</div>
+					</div>
+				))}
+			</motion.div>
 		</div>
 	);
 };
 
 export default FlipClock;
+
