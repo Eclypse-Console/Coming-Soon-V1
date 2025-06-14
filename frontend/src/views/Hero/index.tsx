@@ -45,7 +45,7 @@ export default function HeroSection() {
             <br />
             Style keeps changing. And so is the way we find it.
             <br />
-            Stand out. Live the Eclypse.
+            <p className="text-white mt-3" >Stand out. Live the Eclypse.</p>
           </p>
         </div>
       </div>
