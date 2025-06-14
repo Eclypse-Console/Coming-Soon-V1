@@ -26,7 +26,7 @@ const NewsLetter = () => {
 	};
 
 	return (
-		<div className="relative w-full py-16 px-4 sm:px-6 lg:px-8 z-10 mt-20">
+		<div className="relative w-full py-16 px-4 sm:px-6 lg:px-8 z-[110]">
 			<form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-4xl mx-auto">
 				<div className="flex flex-col items-center">
 					<div className="flex flex-col lg:flex-row items-center gap-4 w-full justify-center">
@@ -53,7 +53,8 @@ const NewsLetter = () => {
 										fontSize: "16.35",
 										lineHeight: "150%",
 										fontFamily: "SF Pro, sans-serif",
-										fontWeight: "400"
+										fontWeight: "400",
+
 									}}
 									className="text-[#FFFFFF] focus:outline-none m-0 opacity-[70%]"
 									placeholder="example@email.com"
