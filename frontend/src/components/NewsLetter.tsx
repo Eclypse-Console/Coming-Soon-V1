@@ -26,7 +26,7 @@ const NewsLetter = () => {
 	};
 
 	return (
-		<div className="relative w-full py-16 px-4 sm:px-6 lg:px-8 z-10">
+		<div className="relative w-full py-16 px-4 sm:px-6 lg:px-8 z-10 mt-20">
 			<form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-4xl mx-auto">
 				<div className="flex flex-col items-center">
 					<div className="flex flex-col lg:flex-row items-center gap-4 w-full justify-center">
