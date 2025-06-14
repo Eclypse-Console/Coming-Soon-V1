@@ -54,7 +54,11 @@ const NewsLetter = () => {
 										lineHeight: "150%",
 										fontFamily: "SF Pro, sans-serif",
 										fontWeight: "400",
+<<<<<<< HEAD
+										cursor: "text"
+=======
 
+>>>>>>> origin/shashankmomula11/ecl-55-fix-gap-issues
 									}}
 									className="text-[#FFFFFF] focus:outline-none m-0 opacity-[70%]"
 									placeholder="example@email.com"
@@ -69,7 +73,7 @@ const NewsLetter = () => {
 						</div>
 						<div className="w-full lg:w-auto flex justify-center items-center" style={{ height: "57.24px", marginTop: "-12px" }}>
 							<div>
-								<GlowingButton />
+								<GlowingButton onClick={handleSubmit(onSubmit)} />
 							</div>
 						</div>
 					</div>
