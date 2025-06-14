@@ -26,7 +26,7 @@ const CustomScrollbar: React.FC<CustomScrollbarProps> = ({ children, className =
             setIsThumbVisible(true);
         }
 
-        const newThumbHeight = (clientHeight / scrollHeight) * clientHeight;
+        const newThumbHeight = (clientHeight / scrollHeight) * clientHeight / 2;
         const scrollableHeight = scrollHeight - clientHeight;
         const thumbMaxTop = clientHeight - newThumbHeight;
         const newThumbTop = (scrollTop / scrollableHeight) * thumbMaxTop;
