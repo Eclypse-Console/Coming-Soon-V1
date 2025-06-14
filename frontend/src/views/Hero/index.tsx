@@ -32,7 +32,7 @@ export default function HeroSection() {
           <p className="text-[#9797C2] font-sora font-light leading-[100%] tracking-[0.4em] 
               text-[14px] text-center 
               md:text-[15px] 
-              lg:text-[16px] lg:text-left lg:ml-[-29px]">
+              lg:text-[16px] lg:text-left lg:ml-[40px]">
             INTRODUCING
           </p>
 
@@ -41,7 +41,7 @@ export default function HeroSection() {
                md:text-[52px] 
                lg:text-[66.22px] lg:text-left 
                bg-gradient-to-r from-[#EEF1F0] to-[#71757E] 
-               bg-clip-text text-transparent ml-[-34px]
+               bg-clip-text text-transparent ml-[30px]
                lg:mt-0 mt-5 
                break-words">
             Eclypse
@@ -56,17 +56,20 @@ export default function HeroSection() {
 
         <div className='lg:mt-0 mt-20 lg:mb-0 mb-20 max-w-full lg:max-w-[29%] text-center 
                 md:text-[14px] md:max-w-[45%]
-                lg:text-[15px] lg:text-left text-[14px]'>
+                lg:text-[15px] lg:text-left text-[14px] lg:mr-20'>
           <p className="md:mb-2">It's different. It's new.</p>
 
           <p className='text-[#999] lg:text-[#888] md:leading-[1.5]'>
             Don't shop. Vibe. Connect. Express.
             <br />
-            Where discovery feels intuitive, and style isn’t worn, it’s felt.
-
+            Where discovery feels intuitive, and 
             <br />
-            <span className="text-white">Eclypse</span> is an e-commerce platform in alignment with you.
+            style isn’t worn, it’s felt.
+            <br/>
+            <span className="text-white">Eclypse</span> is an e-commerce platform 
             <br />
+            in alignment with you.
+            <br/>
             <span className="text-white mt-3 block">Stand out. Live the Eclypse.</span>
           </p>
         </div>
@@ -75,7 +78,7 @@ export default function HeroSection() {
       <button
         onClick={scrollToBottom}
         style={{ opacity }}
-        className="fixed bottom-6 right-6 w-12 h-12 bg-transparent rounded-full transition-opacity duration-500 z-[130] flex items-center justify-center hidden md:flex"
+        className="fixed bottom-6 right-6 w-12 h-12 bg-transparent rounded-full transition-opacity duration-500 z-[130] flex items-center justify-center md:flex"
         aria-label="Scroll to bottom"
       >
         <img

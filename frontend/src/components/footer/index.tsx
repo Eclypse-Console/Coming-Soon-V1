@@ -21,7 +21,7 @@ const iconList: OrbitIcon[] = [
   },
   {
     icon: <LinkedInIcon />,
-    url: "https://linkedin.com",
+    url: "https://www.linkedin.com/company/eclypse-store/",
     delay: "8",
   },
 ];
