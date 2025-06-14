@@ -258,7 +258,7 @@ const FlipClock: React.FC = () => {
 					<div key={key} className="flex flex-col items-center">
 						<FlipCard value={time[key as keyof TimeState]} />
 						<div
-							className="mt-2 w-[45px] h-[18px] md:w-[53px] md:h-[22px] lg:w-[61px] lg:h-6 opacity-60 text-white text-center text-[12px] md:text-[14px] lg:text-[16.25px] flex items-center justify-center mt-[10px] md:mt-[15px] lg:mt-[20px]"
+							className="mt-2 w-[45px] h-[18px] md:w-[53px] md:h-[22px] lg:w-[61px] lg:h-6 opacity-60 text-white text-center text-[12px] md:text-[14px] lg:text-[16.25px] flex items-center justify-center md:mt-[15px] lg:mt-[20px]"
 							style={{
 								fontFamily: "Akira Expanded",
 								fontWeight: 800,
