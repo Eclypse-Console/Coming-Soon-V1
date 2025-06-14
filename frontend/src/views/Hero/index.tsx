@@ -41,7 +41,9 @@ export default function HeroSection() {
           <p className="md:mb-2">It's different. It's new.</p>
 
           <p className='text-[#999] lg:text-[#888] md:leading-[1.5]'>
-            Don't shop. Vibe, connect, express. Where style isn't worn, it's felt.
+            Don't shop. Vibe, connect, express.
+            <br />
+            Where style isn't worn, it's felt.
             <br />
             Style keeps changing. And so is the way we find it.
             <br />
