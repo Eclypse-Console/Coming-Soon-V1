@@ -7,9 +7,9 @@ interface FlipCardProps {
 }
 
 interface TimeState {
-	years: string;
 	months: string;
 	days: string;
+	hours: string;
 }
 
 const FlipCard: React.FC<FlipCardProps> = ({ value }) => {
@@ -194,34 +194,48 @@ const FlipCard: React.FC<FlipCardProps> = ({ value }) => {
 
 const FlipClock: React.FC = () => {
 	const [time, setTime] = useState<TimeState>({
-		years: "00",
 		months: "00",
 		days: "00",
+		hours: "00",
 	});
 
 	useEffect(() => {
 		const calculateCountdown = () => {
 			const now = new Date();
-			const target = new Date("2025-09-06T00:00:00");
+			const target = new Date("2026-01-01T00:00:00Z");
 
-			let years = target.getFullYear() - now.getFullYear();
-			let months = target.getMonth() - now.getMonth();
-			let days = target.getDate() - now.getDate();
-
-			if (days < 0) {
-				months -= 1;
-				days += new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+			if (now >= target) {
+				setTime({
+					months: "00",
+					days: "00",
+					hours: "00",
+				});
+				return;
 			}
 
-			if (months < 0) {
-				years -= 1;
-				months += 12;
+			let months = 0;
+			let currentDate = new Date(now);
+
+			while (true) {
+				const nextMonth = new Date(currentDate);
+				nextMonth.setMonth(nextMonth.getMonth() + 1);
+
+				if (nextMonth > target) break;
+
+				months++;
+				currentDate = nextMonth;
 			}
+
+			const remainingMs = target.getTime() - currentDate.getTime();
+			const remainingDays = Math.floor(remainingMs / (1000 * 60 * 60 * 24));
+
+			const totalHours = Math.floor(remainingMs / (1000 * 60 * 60));
+			const remainingHours = totalHours % 24;
 
 			setTime({
-				years: String(Math.max(0, years)).padStart(2, "0"),
 				months: String(Math.max(0, months)).padStart(2, "0"),
-				days: String(Math.max(0, days)).padStart(2, "0"),
+				days: String(Math.max(0, remainingDays)).padStart(2, "0"),
+				hours: String(Math.max(0, remainingHours)).padStart(2, "0"),
 			});
 		};
 
@@ -254,7 +268,7 @@ const FlipClock: React.FC = () => {
 				animate={{ opacity: 1, scale: 1, y: 0 }}
 				transition={{ duration: 1.2, ease: "easeOut" }}
 			>
-				{["years", "months", "days"].map((key) => (
+				{["months", "days", "hours"].map((key) => (
 					<div key={key} className="flex flex-col items-center">
 						<FlipCard value={time[key as keyof TimeState]} />
 						<div
@@ -276,4 +290,3 @@ const FlipClock: React.FC = () => {
 };
 
 export default FlipClock;
-
