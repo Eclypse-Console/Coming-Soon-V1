@@ -74,7 +74,7 @@ export default function HeroSection() {
       <button
         onClick={scrollToBottom}
         style={{ opacity }}
-        className="fixed bottom-6 right-6 w-12 h-12 bg-transparent transition-opacity duration-500 z-[130] flex items-center justify-center hidden md:flex"
+        className="fixed bottom-6 right-6 w-12 h-12 bg-transparent rounded-full transition-opacity duration-500 z-[130] flex items-center justify-center hidden md:flex"
         aria-label="Scroll to bottom"
       >
         <img
