@@ -1,61 +1,70 @@
 import React, { useState, useRef, useCallback } from 'react';
 
 interface CustomScrollbarProps {
-  children: React.ReactNode;
-  className?: string;
+    children: React.ReactNode;
+    className?: string;
 }
 
 const CustomScrollbar: React.FC<CustomScrollbarProps> = ({ children, className = '' }) => {
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [thumbHeight, setThumbHeight] = useState(0);
-  const [scrollThumbTop, setScrollThumbTop] = useState(0);
-  const [isThumbVisible, setIsThumbVisible] = useState(false);
+    const contentRef = useRef<HTMLDivElement>(null);
+    const [thumbHeight, setThumbHeight] = useState(0);
+    const [scrollThumbTop, setScrollThumbTop] = useState(0);
+    const [isThumbVisible, setIsThumbVisible] = useState(false);
 
-  const handleScroll = useCallback(() => {
-    const content = contentRef.current;
-    if (!content) return;
+    const handleScroll = useCallback(() => {
+        const content = contentRef.current;
+        if (!content) return;
 
-    const { scrollTop, scrollHeight, clientHeight } = content;
+        const { scrollTop, scrollHeight, clientHeight } = content;
 
-    if (!isThumbVisible) {
-      setIsThumbVisible(true);
-    }
+        if (scrollHeight <= clientHeight) {
+            setIsThumbVisible(false);
+            return;
+        }
 
-    const newThumbHeight = (clientHeight / scrollHeight) * clientHeight;
-    setThumbHeight(newThumbHeight);
+        if (!isThumbVisible) {
+            setIsThumbVisible(true);
+        }
 
-    const scrollableHeight = scrollHeight - clientHeight;
-    const thumbMaxTop = clientHeight - newThumbHeight;
-    const newThumbTop = (scrollTop / scrollableHeight) * thumbMaxTop;
-    setScrollThumbTop(newThumbTop);
-  }, [isThumbVisible]);
+        const newThumbHeight = (clientHeight / scrollHeight) * clientHeight;
+        const scrollableHeight = scrollHeight - clientHeight;
+        const thumbMaxTop = clientHeight - newThumbHeight;
+        const newThumbTop = (scrollTop / scrollableHeight) * thumbMaxTop;
 
-  return (
-    <div className={`relative h-full w-full bg-black ${className}`}>
-      <div
-        ref={contentRef}
-        className="h-full w-full overflow-y-scroll no-scrollbar"
-        onScroll={handleScroll}
-      >
-        <div className="pr-2">
-          {children}
+        setThumbHeight(newThumbHeight);
+        setScrollThumbTop(newThumbTop);
+    }, [isThumbVisible]);
+
+    const handleRef = (el: HTMLDivElement | null) => {
+        contentRef.current = el;
+        if (el) handleScroll();
+    };
+
+    return (
+        <div className={`relative h-full w-full ${className}`}>
+            <div
+                ref={handleRef}
+                className="h-full w-full overflow-y-scroll no-scrollbar"
+                onScroll={handleScroll}
+            >
+                <div className="pr-1">
+                    {children}
+                </div>
+            </div>
+
+            {isThumbVisible && (
+                <div className="pointer-events-none absolute top-0 right-0 h-full w-[7px] z-10 bg-transparent">
+                    <div
+                        className="absolute right-[1px] w-[5px] rounded-full bg-gray-400 opacity-70"
+                        style={{
+                            height: `${thumbHeight}px`,
+                            top: `${scrollThumbTop}px`,
+                        }}
+                    />
+                </div>
+            )}
         </div>
-      </div>
-
-      {isThumbVisible && (
-        <div className="absolute top-0 right-[2px] h-full w-[7px] py-1 pointer-events-none">
-          <div className="absolute right-0 top-0 h-full w-px bg-blue-800 opacity-50"></div>
-          <div
-            className="absolute right-[1px] w-[5px] bg-gray-400 rounded-full opacity-70"
-            style={{
-              height: `${thumbHeight}px`,
-              top: `${scrollThumbTop}px`,
-            }}
-          ></div>
-        </div>
-      )}
-    </div>
-  );
+    );
 };
 
 export default CustomScrollbar;
