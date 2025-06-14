@@ -66,7 +66,7 @@ const NewsLetter = () => {
 								</p>
 							)}
 						</div>
-						<div className="w-full lg:w-auto flex justify-center items-center" style={{ height: "57.24px", marginTop: "-5px" }}>
+						<div className="w-full lg:w-auto flex justify-center items-center" style={{ height: "57.24px", marginTop: "-12px" }}>
 							<div>
 								<GlowingButton />
 							</div>
