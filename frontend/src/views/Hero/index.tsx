@@ -1,8 +1,29 @@
+import { useEffect, useState } from "react";
 import Beem_pulse from "../../components/Been-Pulse";
 
-
-
 export default function HeroSection() {
+  const [opacity, setOpacity] = useState(1);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const fadeStart = 0;
+      const fadeEnd = 300;
+      const newOpacity = 1 - Math.min(Math.max((scrollY - fadeStart) / (fadeEnd - fadeStart), 0), 1);
+      setOpacity(newOpacity);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToBottom = () => {
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <div className="relative min-h-screen">
       <Beem_pulse />
@@ -29,7 +50,7 @@ export default function HeroSection() {
 
         <div className='relative z-[120] lg:hidden block lg:mt-0 mt-48 '>
           <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 1L7 7L13 1" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M1 1L7 7L13 1" stroke="#F2F2F2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
 
@@ -45,10 +66,24 @@ export default function HeroSection() {
             <br />
             Style keeps changing. And so is the way we find it.
             <br />
-            <p className="text-white mt-3" >Stand out. Live the Eclypse.</p>
+            <span className="text-white mt-3 block">Stand out. Live the Eclypse.</span>
           </p>
         </div>
       </div>
+
+      <button
+        onClick={scrollToBottom}
+        style={{ opacity }}
+        className="fixed bottom-6 right-6 w-12 h-12 bg-transparent transition-opacity duration-500 z-[130] flex items-center justify-center hidden md:flex"
+        aria-label="Scroll to bottom"
+      >
+        <img
+          src="/assets/svg/chevron-down.svg"
+          alt="Scroll Down"
+          className="w-9 h-9"
+        />
+      </button>
+
     </div>
-  )
+  );
 }
