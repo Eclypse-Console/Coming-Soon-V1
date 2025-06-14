@@ -9,7 +9,7 @@ function mainPage() {
 		<FlipClock />
 		<NewsLetter />
 		<Footer />
-		
+
 	</div>
 }
 
