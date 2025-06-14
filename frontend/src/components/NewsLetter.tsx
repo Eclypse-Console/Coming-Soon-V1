@@ -54,11 +54,11 @@ const NewsLetter = () => {
 										lineHeight: "150%",
 										fontFamily: "SF Pro, sans-serif",
 										fontWeight: "400",
-<<<<<<< HEAD
-										cursor: "text"
-=======
 
->>>>>>> origin/shashankmomula11/ecl-55-fix-gap-issues
+										cursor: "text"
+
+
+
 									}}
 									className="text-[#FFFFFF] focus:outline-none m-0 opacity-[70%]"
 									placeholder="example@email.com"
