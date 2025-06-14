@@ -1,5 +1,3 @@
-import React from 'react'
-
 import Beem_pulse from "../../components/Been-Pulse";
 
 
