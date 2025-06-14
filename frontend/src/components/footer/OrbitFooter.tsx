@@ -18,7 +18,7 @@ const OrbitFooter: React.FC<Props> = ({ icons, breakpoints }) => {
         setActiveIcons((prev) => [...prev, index]);
       }, delayInMs);
     });
-  }, []);
+  }, [icons]);
 
 
   const pathId = "orbitPath";
@@ -49,7 +49,7 @@ const OrbitFooter: React.FC<Props> = ({ icons, breakpoints }) => {
     <svg
       width={svgWidth}
       viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-      className={`absolute bottom-24 lg:bottom-0 px-0  lg:px-[10%]`}
+      className={`absolute bottom-24 lg:bottom-0 px-0 lg:px-[15%]`}
     >
       <path className="pb-98" id={pathId} d={arcPath} fill="none" stroke={svgWidth < breakpoints.responsiveThreshold ? "#41417C" : "#686868"} strokeWidth={1} />
 
@@ -66,7 +66,7 @@ const OrbitFooter: React.FC<Props> = ({ icons, breakpoints }) => {
 
           <foreignObject width="100px" height="100px" className=" size-28 flex items-center justify-center rounded-full" y={-45}>
             <a target="_blank" key={iconObj.url} href={iconObj.url}
-              className={` h-[53px] md:h-[60px] lg:h-[72px]  w-[53px] md:h-[60px] lg:w-[72px] footor-icons rounded-full flex items-center justify-center mt-[25px] md:mt-[20px] lg:mt-[15px]  mx-auto hover:scale-125 `}
+              className={`h-[80px] md:h-[90px] lg:h-[100px] w-[80px] md:w-[90px] lg:w-[100px] footor-icons rounded-full flex items-center justify-center mt-[25px] md:mt-[20px] lg:mt-[15px] mx-auto hover:scale-150`}
             >
               {iconObj.icon}
             </a>

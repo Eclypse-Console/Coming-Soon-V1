@@ -1,6 +1,7 @@
+import { appRouter } from "@routers/index";
 import { createHTTPServer } from "@trpc/server/adapters/standalone";
 import dotenv from "dotenv";
-import { appRouter } from "./src/trpc/router";
+
 
 dotenv.config();
 

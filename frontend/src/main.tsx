@@ -10,7 +10,6 @@ import { config } from "../../packages/common/config.ts"
 
 
 const queryClient = new QueryClient();
-
 const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
@@ -18,15 +17,11 @@ const trpcClient = trpc.createClient({
     }),
   ],
 });
-
-
-
 createRoot(document.getElementById('root')!).render(
   <trpc.Provider client={trpcClient} queryClient={queryClient}>
     <QueryClientProvider client={queryClient}>
-      <StrictMode>
-        <App />
+      <StrictMode> <App />
       </StrictMode>
     </QueryClientProvider>
   </trpc.Provider>
-)
+  )

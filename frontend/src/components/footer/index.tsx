@@ -39,13 +39,13 @@ const breakpoints: Breakpoints = {
 const Footer = () => {
 
   return (
-    <div className="w-full min-h-screen relative flex items-end justify-center overflow-hidden z-[110]">
+    <div className="w-full  relative flex items-end justify-center overflow-hidden z-[110]">
       <OrbitFooter icons={iconList} breakpoints={breakpoints} />
       <p className="absolute bottom-12 text-white  font-normal text-[14px] md:text-[16.25px] leading-[150%] tracking-[0] text-center w-full opacity-70">
         Eclypse Innovations © Pvt. Ltd.
       </p>
 
-      <div className="block  w-full h-72 transform translate-y-1/2 blur-3xl rounded-[100%] rounded-b-0 bg-[#3d3d9a20] " />
+      <div className="block w-full h-72 transform translate-y-1/2 blur-3xl rounded-[100%] rounded-b-0 bg-[#3d3d9a20] " />
     </div>
   );
 };
