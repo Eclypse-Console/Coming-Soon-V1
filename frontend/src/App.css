@@ -23,3 +23,120 @@ button {
 button:hover {
   background-color: #333;
 }
+
+
+.footor-icons {
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(69.88px);
+}
+
+.footor-icons::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 2.18px;
+  border-radius: 9999px;
+  background: linear-gradient(156.52deg,
+      rgba(255, 255, 255, 0.4) 2.12%,
+      rgba(255, 255, 255, 0.0001) 39%,
+      rgba(255, 255, 255, 0.0001) 54.33%,
+      rgba(255, 255, 255, 0.1) 93.02%);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.centerBeam {
+  position: relative;
+  z-index: 10;
+  filter:
+    drop-shadow(0 0 40px rgba(76, 31, 255, 0.834)) drop-shadow(0 0 100px rgba(76, 31, 255, 0.626));
+}
+
+.centerLogo {
+  animation: glowGlobe 4s ease-in-out infinite;
+  filter: brightness(200%) contrast(200%);
+}
+
+
+
+.topDownAnimation {
+  position: absolute;
+  z-index: 8;
+  box-shadow: 0 0 40px 30px #FF69B4, 0 0 100px 20px rgb(87, 93, 255), 0 0 170px 50px rgb(117, 200, 255);
+  animation: PlasmaComing 4s ease-in-out infinite;
+}
+
+.topDownAnimation2 {
+  box-shadow: 0 0 40px 30px #FF69B4, 0 0 100px 20px rgb(87, 93, 255), 0 0 170px 50px rgb(117, 200, 255);
+  animation: PlasmaComing 4s ease-in-out 3s infinite;
+}
+
+
+
+@keyframes glowGlobe {
+  0% {
+    filter: brightness(110%) drop-shadow(0 0 20px rgba(140, 150, 255, 0.518)) drop-shadow(0 0 20px rgba(140, 150, 255, 0.458));
+  }
+
+  100% {
+    filter: brightness(130%) drop-shadow(0 0 20px rgba(140, 150, 255, 0.518)) drop-shadow(0 0 20px rgba(140, 150, 255, 0.458));
+  }
+}
+
+@keyframes PlasmaComing {
+  0% {
+    top: 10%;
+    opacity: 1;
+  }
+
+  50% {
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+  }
+
+  60% {
+    height: 100px;
+    width: 30px;
+  }
+
+  80% {
+    height: 70px;
+    width: 70px;
+    border-radius: 100%;
+    opacity: 1;
+  }
+
+  99% {
+    height: 30px;
+    width: 100px;
+    top: 45%;
+    opacity: 0.5;
+  }
+
+  100% {
+    top: 19%;
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes RotateInOrbit {
+  0% {
+    transform: rotate(0deg) translateX(43vw) rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(360deg) translateX(43vw) rotate(-360deg);
+  }
+
+  100% {
+    transform: rotate(0deg) translateX(43vw) rotate(0deg);
+  }
+}
