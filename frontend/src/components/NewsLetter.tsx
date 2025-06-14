@@ -26,7 +26,7 @@ const NewsLetter = () => {
 	};
 
 	return (
-		<div className="relative w-full py-16 px-4 sm:px-6 lg:px-8 z-10 mt-20">
+		<div className="relative w-full py-16 px-4 sm:px-6 lg:px-8 z-[110]">
 			<form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-4xl mx-auto">
 				<div className="flex flex-col items-center">
 					<div className="flex flex-col lg:flex-row items-center gap-4 w-full justify-center">
@@ -54,7 +54,11 @@ const NewsLetter = () => {
 										lineHeight: "150%",
 										fontFamily: "SF Pro, sans-serif",
 										fontWeight: "400",
+<<<<<<< HEAD
 										cursor: "text"
+=======
+
+>>>>>>> origin/shashankmomula11/ecl-55-fix-gap-issues
 									}}
 									className="text-[#FFFFFF] focus:outline-none m-0 opacity-[70%]"
 									placeholder="example@email.com"
@@ -67,7 +71,7 @@ const NewsLetter = () => {
 								</p>
 							)}
 						</div>
-						<div className="w-full lg:w-auto flex justify-center items-center" style={{ height: "57.24px", marginTop: "-5px" }}>
+						<div className="w-full lg:w-auto flex justify-center items-center" style={{ height: "57.24px", marginTop: "-12px" }}>
 							<div>
 								<GlowingButton onClick={handleSubmit(onSubmit)} />
 							</div>
