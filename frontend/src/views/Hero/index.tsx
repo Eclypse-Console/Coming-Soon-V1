@@ -13,17 +13,17 @@ export default function HeroSection() {
           <p className="text-[#9797C2] font-sora font-light leading-[100%] tracking-[0.4em] 
               text-[14px] text-center 
               md:text-[15px] 
-              lg:text-[16px] lg:text-left">
+              lg:text-[16px] lg:text-left lg:ml-[-29px]">
             INTRODUCING
           </p>
 
           <h1 className="font-krona font-normal leading-[140%] tracking-[0em] 
                text-[48px] text-center 
-               md:text-[60px] 
-               lg:text-[54.22px] lg:text-left 
+               md:text-[52px] 
+               lg:text-[66.22px] lg:text-left 
                bg-gradient-to-r from-[#EEF1F0] to-[#71757E] 
-               bg-clip-text text-transparent ml-[-5px]
-               lg:mt-0 mt-5
+               bg-clip-text text-transparent ml-[-34px]
+               lg:mt-0 mt-5 
                break-words">
             Eclypse
           </h1>

@@ -49,7 +49,7 @@ const OrbitFooter: React.FC<Props> = ({ icons, breakpoints }) => {
     <svg
       width={svgWidth}
       viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-      className={`absolute bottom-24 lg:bottom-0 px-0  lg:px-[10%]`}
+      className={`absolute bottom-24 lg:bottom-0 px-0 lg:px-[15%]`}
     >
       <path className="pb-98" id={pathId} d={arcPath} fill="none" stroke={svgWidth < breakpoints.responsiveThreshold ? "#41417C" : "#686868"} strokeWidth={1} />
 
