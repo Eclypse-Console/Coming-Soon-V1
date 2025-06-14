@@ -39,11 +39,12 @@ export default function HeroSection() {
           <p className="md:mb-2">It's different. It's new.</p>
 
           <p className='text-[#999] lg:text-[#888] md:leading-[1.5]'>
-            Don't shop. Vibe, connect, express.
+            Don't shop. Vibe. Connect. Express.
             <br />
-            Where style isn't worn, it's felt.
+            Where discovery feels intuitive, and style isn’t worn, it’s felt.
+
             <br />
-            Style keeps changing. And so is the way we find it.
+            <span className="text-white">Eclypse</span> is an e-commerce platform in alignment with you.
             <br />
             <p className="text-white mt-3" >Stand out. Live the Eclypse.</p>
           </p>
