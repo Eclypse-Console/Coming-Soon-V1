@@ -20,6 +20,27 @@ app.use(
   })
 );
 
+// Root route handler
+app.get("/", (req, res) => {
+  res.json({
+    status: "ok",
+    message: "Eclypse API is running",
+    version: "1.0.0",
+    endpoints: {
+      trpc: "/trpc",
+      health: "/health"
+    }
+  });
+});
+
+// Health check endpoint
+app.get("/health", (req, res) => {
+  res.json({
+    status: "healthy",
+    timestamp: new Date().toISOString()
+  });
+});
+
 app.use(
   "/trpc",
   createExpressMiddleware({
