@@ -1,10 +1,11 @@
 {
   "functions": {
     "api/trpc/[trpc].ts": {
-      "runtime": "nodejs18.x"
+      "runtime": "@vercel/node@18.0.0"
     }
   },
   "buildCommand": "bun run build",
   "devCommand": "bun run start",
-  "installCommand": "bun install"
+  "installCommand": "bun install",
+  "framework": "bun"
 }
