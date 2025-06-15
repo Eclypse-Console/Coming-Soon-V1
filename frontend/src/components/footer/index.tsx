@@ -40,7 +40,9 @@ const Footer = () => {
 
   return (
     <div className="w-full  relative flex items-end justify-center overflow-hidden z-[110]">
-      <OrbitFooter icons={iconList} breakpoints={breakpoints} />
+      <OrbitFooter icons={iconList} 
+        breakpoints={breakpoints} 
+        className="translate-y-[30px] lg:translate-y-[130px]"/>
       <p className="absolute bottom-12 text-white  font-normal text-[14px] md:text-[16.25px] leading-[150%] tracking-[0] text-center w-full opacity-70">
         Aeza Innovations © Pvt. Ltd.
       </p>
