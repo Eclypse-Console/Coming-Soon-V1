@@ -6,7 +6,7 @@ export const trpc = createTRPCReact<AppRouter>();
 export const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
-        url: `https://csversionzero-git-main-eclypse-product-team.vercel.app/api/trpc`,
+        url: `https://coming-soon-v1-backend.onrender.com`,
        
       }),
   ],
