@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { newsletterSchema } from "../utils/ValidationSchema";
@@ -111,6 +112,7 @@ const NewsLetter = () => {
 					reject(new Error('Request timeout'));
 				}, 15000);
 
+
 				(window as any)[callbackName] = (result: any) => {
 					clearTimeout(timeoutId);
 					cleanup();
@@ -150,6 +152,7 @@ const NewsLetter = () => {
 				} else {
 					setSubmitError((result as any).error || "Failed to subscribe");
 				}
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			} catch (jsonpError) {
 				console.log("JSONP failed, trying form submission method...");
 
@@ -183,6 +186,7 @@ const NewsLetter = () => {
 
 			const iframe = iframeRef.current;
 			if (iframe) {
+				// eslint-disable-next-line prefer-const
 				let timeoutId: NodeJS.Timeout;
 
 				const handleLoad = () => {

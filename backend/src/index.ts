@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import { appRouter } from "@routers/index";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 
-import { config } from "@packages/common/config.ts";
+
 
 dotenv.config();
 
