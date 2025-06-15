@@ -1,4 +1,4 @@
-import { publicProcedure, router } from "../../api/trpc/index";
+import { publicProcedure, router } from "../trpc";
 import { z } from "zod";
 import { db, newsletterUser } from "../db/index";
 import { count } from "drizzle-orm";

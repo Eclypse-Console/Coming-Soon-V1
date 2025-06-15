@@ -9,8 +9,9 @@ import { config } from "@packages/common/config.ts";
 dotenv.config();
 
 const app = express();
-const PORT = Number(config.PORT || process.env.PORT || 6970);
+const PORT = Number(config.PORT || process.env.PORT || 10000);
 
+// Enable CORS
 app.use(
   cors({
     origin: "*",
@@ -19,6 +20,9 @@ app.use(
     credentials: true,
   })
 );
+
+// Parse JSON bodies
+app.use(express.json());
 
 // Root route handler
 app.get("/", (req, res) => {
@@ -41,17 +45,36 @@ app.get("/health", (req, res) => {
   });
 });
 
+// tRPC middleware
 app.use(
   "/trpc",
   createExpressMiddleware({
     router: appRouter,
+    createContext: () => ({}),
   })
 );
 
+// Handle 404s
+app.use((req, res) => {
+  res.status(404).json({
+    status: "error",
+    message: "Not Found",
+    path: req.path
+  });
+});
+
+// Error handler
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error(err);
+  res.status(500).json({
+    status: "error",
+    message: "Internal Server Error"
+  });
+});
+
 app.listen(PORT, () => {
-  console.log(
-    `🚀 Express + tRPC server running on http://localhost:${PORT}/trpc`
-  );
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`📝 API Documentation available at http://localhost:${PORT}/`);
 });
 
 export * from "./routers/index";
