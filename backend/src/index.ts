@@ -9,28 +9,14 @@ import { config } from "@packages/common/config.ts";
 dotenv.config();
 
 const app = express();
-const PORT = Number(config.PORT || process.env.PORT || 10000);
+const PORT = Number(process.env.PORT || 10000);
 
-// Enable CORS with more permissive settings
-app.use(
-  cors({
-    origin: true, // Allow all origins
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
-    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept", "Origin"],
-    credentials: true,
-    preflightContinue: false,
-    optionsSuccessStatus: 204
-  })
-);
-
-// Handle preflight requests
-app.options('*', cors());
-
-// Parse JSON bodies
+// Basic middleware
 app.use(express.json());
+app.use(cors());
 
-// Root route handler
-app.get('/', (req, res) => {
+// Simple route handlers
+app.get('/', (_, res) => {
   res.json({
     status: "ok",
     message: "Eclypse API is running",
@@ -42,41 +28,31 @@ app.get('/', (req, res) => {
   });
 });
 
-// Health check endpoint
-app.get('/health', (req, res) => {
+app.get('/health', (_, res) => {
   res.json({
     status: "healthy",
     timestamp: new Date().toISOString()
   });
 });
 
-// tRPC middleware with CORS headers
-app.use('/trpc', createExpressMiddleware({
+// tRPC setup
+const trpcMiddleware = createExpressMiddleware({
   router: appRouter,
   createContext: () => ({}),
-  onError: ({ error }) => {
-    console.error('tRPC Error:', error);
-  },
-}));
-
-// Handle 404s
-app.use((req, res) => {
-  res.status(404).json({
-    status: "error",
-    message: "Not Found",
-    path: req.path
-  });
 });
 
-// Error handler
+app.use('/trpc', trpcMiddleware);
+
+// Error handling
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  console.error(err);
+  console.error('Error:', err);
   res.status(500).json({
     status: "error",
     message: "Internal Server Error"
   });
 });
 
+// Start server
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`📝 API Documentation available at http://localhost:${PORT}/`);

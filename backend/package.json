@@ -27,7 +27,6 @@
   },
   "scripts": {
     "start": "bun src/index.ts",
-    "build": "echo 'Installing dependencies...' && bun install && echo 'Building...' && bun build ./src/index.ts --outdir dist && echo 'Build complete'",
     "generate:migration": "drizzle-kit generate --config=./src/drizzle/drizzle.config.ts",
     "push:migration": "drizzle-kit push --config=./src/drizzle/drizzle.config.ts"
   }
