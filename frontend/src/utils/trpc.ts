@@ -6,7 +6,8 @@ export const trpc = createTRPCReact<AppRouter>();
 export const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
-      url: "http://localhost:6970/trpc",
-    }),
+        url: `${import.meta.env.VITE_API_URL}/trpc`,
+       
+      }),
   ],
 });
