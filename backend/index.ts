@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const port = Number(process.env.PORT || 2025);
+const port = Number(process.env.PORT || 6970);
 
 createHTTPServer({ router: appRouter }).listen(port);
 
