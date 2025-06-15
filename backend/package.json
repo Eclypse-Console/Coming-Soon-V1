@@ -26,7 +26,7 @@
   },
   "scripts": {
     "start": "bun src/index.ts",
-    "build": "echo 'Building...' && bun build ./api/trpc/[trpc].ts --outdir .vercel/output/functions/api/trpc && echo 'Build complete'",
+    "build": "echo 'Installing dependencies...' && bun install && echo 'Building...' && bun build ./api/trpc/[trpc].ts --outdir .vercel/output/functions/api/trpc && echo 'Build complete'",
     "generate:migration": "drizzle-kit generate --config=./src/drizzle/drizzle.config.ts",
     "push:migration": "drizzle-kit push --config=./src/drizzle/drizzle.config.ts"
   }

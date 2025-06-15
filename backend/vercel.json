@@ -1,4 +1,5 @@
 {
+  "version": 2,
   "functions": {
     "api/trpc/[trpc].ts": {
       "runtime": "@vercel/node@18.0.0",
@@ -6,14 +7,14 @@
       "maxDuration": 10
     }
   },
-  "buildCommand": "bun run build",
+  "buildCommand": "bun install && bun run build",
   "devCommand": "bun run start",
   "installCommand": "bun install",
-  "framework": "bun",
+  "framework": "other",
   "builds": [
     {
       "src": "api/trpc/[trpc].ts",
-      "use": "@vercel/node"
+      "use": "@vercel/node@18.0.0"
     }
   ]
 }
