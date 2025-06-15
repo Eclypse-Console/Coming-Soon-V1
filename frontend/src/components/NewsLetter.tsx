@@ -12,7 +12,9 @@ const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzfqH_wC27ShW
 
 const NewsLetter = () => {
 	const [subscriberCount, setSubscriberCount] = useState<number>(0);
-	const [isLoading, setIsLoading] = useState(false);
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const [, setIsLoading] = useState(false);
+	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [submitError, setSubmitError] = useState<string>("");
 	const [submitSuccess, setSubmitSuccess] = useState(false);
 	const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -28,19 +30,19 @@ const NewsLetter = () => {
 
 	// Fetch subscriber count using JSONP with better error handling
 	const fetchSubscriberCount = async () => {
+		setIsLoading(true);
 		try {
 			const callbackName = `jsonp_callback_${Date.now()}_${Math.floor(Math.random() * 10000)}`;
 			let script: HTMLScriptElement;
 			let timeoutId: NodeJS.Timeout;
 
 			const promise = new Promise((resolve, reject) => {
-				// Set up timeout
+				
 				timeoutId = setTimeout(() => {
 					cleanup();
 					reject(new Error('Request timeout'));
-				}, 10000); // 10 second timeout
+				}, 10000); 
 
-				// Set up the callback function
 				(window as any)[callbackName] = (data: any) => {
 					clearTimeout(timeoutId);
 					cleanup();
@@ -56,7 +58,6 @@ const NewsLetter = () => {
 					}
 				};
 
-				// Create and append script
 				script = document.createElement('script');
 				script.onerror = () => {
 					clearTimeout(timeoutId);
@@ -65,7 +66,6 @@ const NewsLetter = () => {
 				};
 
 				script.onload = () => {
-					// If onload fires but callback wasn't called, it's likely a CORS issue
 					setTimeout(() => {
 						if ((window as any)[callbackName]) {
 							clearTimeout(timeoutId);
@@ -80,23 +80,26 @@ const NewsLetter = () => {
 			});
 
 			const data = await promise;
-			setSubscriberCount((data as any).count || 0);
+			const actualCount = (data as any).count || 0;
+			setSubscriberCount(actualCount);
+
 		} catch (error) {
 			console.error("Failed to fetch subscriber count:", error);
-			// Set a default count or try alternative method
-			setSubscriberCount(0);
+			// Keep the current count if fetch fails, don't reset to 0
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
 	useEffect(() => {
 		fetchSubscriberCount();
-		// Set up periodic refresh every 30 seconds
-		const interval = setInterval(fetchSubscriberCount, 30000);
+		// Set up periodic refresh every 10 seconds for more real-time updates
+		const interval = setInterval(fetchSubscriberCount, 10000);
 		return () => clearInterval(interval);
-	}, []);
+	}, []); // Added dependency array to prevent infinite re-renders
 
 	const onSubmit = async (data: NewsletterFormData) => {
-		setIsLoading(true);
+		setIsSubmitting(true);
 		setSubmitError("");
 		setSubmitSuccess(false);
 
@@ -111,7 +114,6 @@ const NewsLetter = () => {
 					cleanup();
 					reject(new Error('Request timeout'));
 				}, 15000);
-
 
 				(window as any)[callbackName] = (result: any) => {
 					clearTimeout(timeoutId);
@@ -147,12 +149,15 @@ const NewsLetter = () => {
 					console.log("Email stored successfully:", data.email);
 					setSubmitSuccess(true);
 					reset();
-					// Refresh count after successful submission
-					setTimeout(() => fetchSubscriberCount(), 1000);
+
+					// Immediately refresh count from Google Sheets after successful submission
+					setTimeout(() => fetchSubscriberCount(), 500);
+					// Refresh again after a bit more time to ensure consistency
+					setTimeout(() => fetchSubscriberCount(), 2000);
 				} else {
 					setSubmitError((result as any).error || "Failed to subscribe");
 				}
-				// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			} catch (jsonpError) {
 				console.log("JSONP failed, trying form submission method...");
 
@@ -164,7 +169,7 @@ const NewsLetter = () => {
 			console.error("Failed to store email:", error);
 			setSubmitError("Network error. Please try again.");
 		} finally {
-			setIsLoading(false);
+			setIsSubmitting(false);
 		}
 	};
 
@@ -191,21 +196,19 @@ const NewsLetter = () => {
 
 				const handleLoad = () => {
 					clearTimeout(timeoutId);
-
-					// Since we can't read the response due to CORS, 
-					// we'll assume success and refresh the count
+					
 					console.log("Form submitted successfully (assuming success due to CORS)");
 					setSubmitSuccess(true);
 					reset();
 
-					// Clean up
 					iframe.removeEventListener('load', handleLoad);
 					if (form.parentNode) {
 						document.body.removeChild(form);
 					}
 
-					// Refresh count after a delay
-					setTimeout(() => fetchSubscriberCount(), 2000);
+					// Refresh count from Google Sheets after form submission
+					setTimeout(() => fetchSubscriberCount(), 1000);
+					setTimeout(() => fetchSubscriberCount(), 3000);
 					resolve();
 				};
 
@@ -233,8 +236,35 @@ const NewsLetter = () => {
 		});
 	};
 
-	const remainingSpots = subscriberCount ? Math.max(0, 1000 - subscriberCount) : 1000;
+	// Use only the Google Sheets count, no local state tracking
+	const remainingSpots = Math.max(0, 1000 - subscriberCount);
 	const isLimitReached = remainingSpots === 0;
+
+	const getStatusMessage = () => {
+		if (isSubmitting) {
+			return "Subscribing...";
+		}
+		if (submitSuccess) {
+			return "Successfully subscribed!";
+		}
+		if (submitError) {
+			return submitError;
+		}
+		return "";
+	};
+
+	const getStatusColor = () => {
+		if (isSubmitting) {
+			return "text-blue-500";
+		}
+		if (submitSuccess) {
+			return "text-green-500";
+		}
+		if (submitError) {
+			return "text-red-500";
+		}
+		return "";
+	};
 
 	return (
 		<div className="relative w-full py-16 px-4 sm:px-6 lg:px-8 z-[110]">
@@ -278,7 +308,7 @@ const NewsLetter = () => {
 									className="text-[#FFFFFF] focus:outline-none m-0 opacity-[70%]"
 									placeholder={isLimitReached ? "Limit reached" : "example@email.com"}
 									type="email"
-									disabled={isLimitReached || isLoading}
+									disabled={isLimitReached || isSubmitting}
 								/>
 							</div>
 						</div>
@@ -289,14 +319,9 @@ const NewsLetter = () => {
 									{errors.email.message}
 								</p>
 							)}
-							{submitError && (
-								<p className="text-red-500 text-sm text-center mt-2">
-									{submitError}
-								</p>
-							)}
-							{submitSuccess && (
-								<p className="text-green-500 text-sm text-center mt-2">
-									Successfully subscribed!
+							{getStatusMessage() && (
+								<p className={`${getStatusColor()} text-sm text-center mt-2`}>
+									{getStatusMessage()}
 								</p>
 							)}
 						</div>
@@ -304,7 +329,7 @@ const NewsLetter = () => {
 						<div className="w-full lg:w-auto flex justify-center items-center" style={{ height: "57.24px", marginTop: "-12px" }}>
 							<GlowingButton
 								onClick={handleSubmit(onSubmit)}
-
+								
 							/>
 						</div>
 					</div>
@@ -314,14 +339,9 @@ const NewsLetter = () => {
 								{errors.email.message}
 							</p>
 						)}
-						{submitError && (
-							<p className="text-red-500 text-sm mt-2 text-center lg:text-left">
-								{submitError}
-							</p>
-						)}
-						{submitSuccess && (
-							<p className="text-green-500 text-sm mt-2 text-center lg:text-left">
-								Successfully subscribed!
+						{getStatusMessage() && (
+							<p className={`${getStatusColor()} text-sm mt-2 text-center lg:text-left`}>
+								{getStatusMessage()}
 							</p>
 						)}
 					</div>
@@ -343,37 +363,9 @@ const NewsLetter = () => {
 							}}
 						>
 							Exclusive discounts and premium offers await our first 1,000 subscribers
-
 						</p>
 
-						{!isLimitReached && (
-							<div className="flex items-center gap-2 mt-10">
-								<p className="text-[#9797C2] font-sora font-light leading-[100%] tracking-[0.4em] text-[14px] text-center md:text-[15px] lg:text-[16px] lg:text-left lg:ml-[40px]">
-									{subscriberCount !== undefined
-										? `${remainingSpots} SPOTS REMAINING`
-										: "LOADING..."
-									}
-								</p>
-								{subscriberCount !== undefined && (
-									<div className="flex items-center gap-3">
-										<div className="relative w-32 bg-[#1A1A1A] rounded-full h-3 border border-[#2E2E2E] overflow-hidden shadow-inner">
-											<div
-												className="absolute inset-0 bg-gradient-to-r from-[#171717D9] via-[#7C3AED] to-[#A855F7] h-full rounded-full transition-all duration-700 ease-out shadow-lg"
-												style={{
-													width: `${((subscriberCount / 1000) * 100).toFixed(1)}%`,
-													boxShadow: '0 0 10px rgba(168, 85, 247, 0.4)'
-												}}
-											>
-												<div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/10 to-white/20 rounded-full"></div>
-											</div>
-										</div>
-										<span className="text-[#9797C2] font-sora font-light leading-[100%] tracking-[0.3em] text-[12px] md:text-[13px] lg:text-[14px]">
-											{((subscriberCount / 1000) * 100).toFixed(0)}% FILLED
-										</span>
-									</div>
-								)}
-							</div>
-						)}
+						
 					</div>
 				</div>
 			</form>
