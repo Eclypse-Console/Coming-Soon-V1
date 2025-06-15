@@ -6,14 +6,14 @@ import App from './App.tsx'
 import { trpc } from './lib/trpc/index.ts';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { httpBatchLink } from '@trpc/client';
-import { config } from "../../packages/common/config.ts"
+
 
 
 const queryClient = new QueryClient();
 const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
-      url: `http://localhost:${config.PORT}/trpc`,
+      url: `http://localhost:6970`,
     }),
   ],
 });

@@ -1,4 +1,5 @@
-import { initTRPC } from "@trpc/server";
+import { initTRPC } from "@trpc/server/unstable-core-do-not-import";
+
 
 const t = initTRPC.create();
 
