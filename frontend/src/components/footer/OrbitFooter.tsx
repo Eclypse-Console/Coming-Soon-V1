@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import type { OrbitIcon, Breakpoints } from "./types";
 
+
 interface Props {
   icons: OrbitIcon[];
   breakpoints: Breakpoints;
+  className?: string;
 }
 
-const OrbitFooter: React.FC<Props> = ({ icons, breakpoints }) => {
+const OrbitFooter: React.FC<Props> = ({ icons, breakpoints, className }) => {
   const [svgWidth, setSvgWidth] = useState(0);
   const [activeIcons, setActiveIcons] = useState<number[]>([]);
 
@@ -41,15 +43,16 @@ const OrbitFooter: React.FC<Props> = ({ icons, breakpoints }) => {
   const arcPath =
     svgWidth < breakpoints.responsiveThreshold
       ? `M${-svgWidth * 0.1},${svgHeight} A${svgWidth * 0.9},${svgHeight * 2} 0 0,1 ${svgWidth},${svgHeight}`
-      : `M0,${svgHeight} A${svgWidth * getSafeRadius(breakpoints.defaultRadiusXRatio, 0.45)},${svgHeight * getSafeRadius(breakpoints.defaultRadiusYRatio, 0.4)} 0 0,1 ${svgWidth},${svgHeight}`;
+      : `M0,${svgHeight} A${svgWidth * getSafeRadius(breakpoints.defaultRadiusXRatio, 0.45)},${(svgHeight) * getSafeRadius(breakpoints.defaultRadiusYRatio, 0.4)} 0 0,1 ${svgWidth},${svgHeight}`;
 
 
 
   return (
     <svg
       width={svgWidth}
+      height={svgHeight + 120}
       viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-      className={`absolute bottom-24 lg:bottom-0 px-0 lg:px-[15%]`}
+      className={`absolute bottom-24 lg:bottom-0 px-0 lg:px-[15%] ${className ?? ""}`}
     >
       <path className="pb-98" id={pathId} d={arcPath} fill="none" stroke={svgWidth < breakpoints.responsiveThreshold ? "#41417C" : "#686868"} strokeWidth={1} />
 
