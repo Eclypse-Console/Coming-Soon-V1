@@ -1,4 +1,4 @@
-import { router } from "../trpc/index";
+import { router } from "../../api/trpc/index";
 import { newsletterRouter } from "./newsletterRouter";
 import { testServerRouter } from "./testServer";
 

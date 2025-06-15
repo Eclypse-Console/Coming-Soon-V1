@@ -1,6 +1,6 @@
-import { publicProcedure, router } from "../trpc/index";
+import { publicProcedure, router } from "../../api/trpc/index";
 import { z } from "zod";
-import { db, newsletterUser } from "@db/index";
+import { db, newsletterUser } from "../db/index";
 import { count } from "drizzle-orm";
 
 export const newsletterRouter = router({
