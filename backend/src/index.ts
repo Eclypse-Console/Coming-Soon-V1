@@ -11,15 +11,20 @@ dotenv.config();
 const app = express();
 const PORT = Number(config.PORT || process.env.PORT || 10000);
 
-// Enable CORS
+// Enable CORS with more permissive settings
 app.use(
   cors({
-    origin: "*",
-    methods: ["GET", "POST", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin: true, // Allow all origins
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept", "Origin"],
     credentials: true,
+    preflightContinue: false,
+    optionsSuccessStatus: 204
   })
 );
+
+// Handle preflight requests
+app.options('*', cors());
 
 // Parse JSON bodies
 app.use(express.json());
@@ -45,12 +50,15 @@ app.get("/health", (req, res) => {
   });
 });
 
-// tRPC middleware
+// tRPC middleware with CORS headers
 app.use(
   "/trpc",
   createExpressMiddleware({
     router: appRouter,
     createContext: () => ({}),
+    onError: ({ error }) => {
+      console.error('tRPC Error:', error);
+    },
   })
 );
 
