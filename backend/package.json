@@ -22,7 +22,8 @@
     "zod": "^3.25.56"
   },
   "scripts": {
-    "start": "bun  src/index.ts",
+    "start": "bun src/index.ts",
+    "build": "bun build src/index.ts --outdir dist",
     "generate:migration": "drizzle-kit generate --config=./src/drizzle/drizzle.config.ts",
     "push:migration": "drizzle-kit push --config=./src/drizzle/drizzle.config.ts"
   }
