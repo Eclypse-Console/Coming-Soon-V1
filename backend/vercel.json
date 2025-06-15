@@ -9,7 +9,7 @@
     "buildCommand": "bun run build",
     "devCommand": "bun run start",
     "installCommand": "bun install",
-    "framework": "other",
+    "framework": "nextjs",
     "builds": [
       {
         "src": "api/trpc/[trpc].ts",
