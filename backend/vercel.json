@@ -9,7 +9,7 @@
     "buildCommand": "bun run build",
     "devCommand": "bun run start",
     "installCommand": "bun install",
-    "framework": "bun",
+    "framework": "other",
     "builds": [
       {
         "src": "api/trpc/[trpc].ts",
