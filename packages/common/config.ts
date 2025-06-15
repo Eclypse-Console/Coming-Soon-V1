@@ -1,3 +1,3 @@
 export const config = {
-  PORT: 6969
+  PORT: 6970
 }

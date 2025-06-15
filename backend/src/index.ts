@@ -9,7 +9,7 @@ import { config } from "@packages/common/config.ts";
 dotenv.config();
 
 const app = express();
-const PORT = Number(config.PORT || process.env.PORT || 2025);
+const PORT = Number(config.PORT || process.env.PORT || 6970);
 
 app.use(
   cors({
