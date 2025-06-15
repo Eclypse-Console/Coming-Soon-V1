@@ -22,7 +22,7 @@
       ],
       "@packages/*": [
         "../../packages/*"
-      ],
+      ]
     },
     /* Advanced bundler settings */
     "allowImportingTsExtensions": true,
@@ -43,5 +43,12 @@
   "include": [
     "src",
     "vite.config.ts"
+  ],
+  "exclude": [
+    "../backend/**/*",
+    "../../backend/**/*",
+    "../**/*.spec.ts",
+    "../**/*.test.ts",
+    "node_modules"
   ]
 }
