@@ -1,7 +1,7 @@
 services:
   - type: web
     name: eclypse-backend
-    env: node
+    env: bun
     buildCommand: bun install
     startCommand: bun run start
     envVars:
@@ -9,8 +9,4 @@ services:
         value: production
       - key: PORT
         value: 10000
-    healthCheckPath: /health
-    routes:
-      - type: rewrite
-        source: /trpc/*
-        destination: /trpc 
+    healthCheckPath: /health 
