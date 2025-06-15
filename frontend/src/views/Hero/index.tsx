@@ -41,7 +41,7 @@ export default function HeroSection() {
                md:text-[52px] 
                lg:text-[66.22px] lg:text-left 
                bg-gradient-to-r from-[#EEF1F0] to-[#71757E] 
-               bg-clip-text text-transparent ml-[40px] md:ml-[10px]
+               bg-clip-text text-transparent
                lg:mt-0 mt-5 
                break-words">
             Eclypse
