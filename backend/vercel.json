@@ -1,19 +1,19 @@
 {
-    "functions": {
-      "api/trpc/[trpc].ts": {
-        "runtime": "@vercel/node",
-        "memory": 1024,
-        "maxDuration": 10
-      }
-    },
-    "buildCommand": "bun run build",
-    "devCommand": "bun run start",
-    "installCommand": "bun install",
-    "framework": "nextjs",
-    "builds": [
-      {
-        "src": "api/trpc/[trpc].ts",
-        "use": "@vercel/node"
-      }
-    ]
-  }
+  "functions": {
+    "api/trpc/[trpc].ts": {
+      "runtime": "@vercel/node@18.0.0",
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  },
+  "buildCommand": "bun run build",
+  "devCommand": "bun run start",
+  "installCommand": "bun install",
+  "framework": "bun",
+  "builds": [
+    {
+      "src": "api/trpc/[trpc].ts",
+      "use": "@vercel/node"
+    }
+  ]
+}
