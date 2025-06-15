@@ -30,7 +30,7 @@ app.options('*', cors());
 app.use(express.json());
 
 // Root route handler
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
   res.json({
     status: "ok",
     message: "Eclypse API is running",
@@ -43,7 +43,7 @@ app.get("/", (req, res) => {
 });
 
 // Health check endpoint
-app.get("/health", (req, res) => {
+app.get('/health', (req, res) => {
   res.json({
     status: "healthy",
     timestamp: new Date().toISOString()
@@ -51,16 +51,13 @@ app.get("/health", (req, res) => {
 });
 
 // tRPC middleware with CORS headers
-app.use(
-  "/trpc",
-  createExpressMiddleware({
-    router: appRouter,
-    createContext: () => ({}),
-    onError: ({ error }) => {
-      console.error('tRPC Error:', error);
-    },
-  })
-);
+app.use('/trpc', createExpressMiddleware({
+  router: appRouter,
+  createContext: () => ({}),
+  onError: ({ error }) => {
+    console.error('tRPC Error:', error);
+  },
+}));
 
 // Handle 404s
 app.use((req, res) => {

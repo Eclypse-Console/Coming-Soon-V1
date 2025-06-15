@@ -12,5 +12,5 @@ services:
     healthCheckPath: /health
     routes:
       - type: rewrite
-        source: /*
-        destination: /api/trpc/[trpc] 
+        source: /trpc/*
+        destination: /trpc 
