@@ -6,7 +6,7 @@ export const trpc = createTRPCReact<AppRouter>();
 export const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
-        url: `https://csversionzero-git-main-eclypse-product-team.vercel.app`,
+        url: `https://csversionzero-git-main-eclypse-product-team.vercel.app/trpc`,
        
       }),
   ],
