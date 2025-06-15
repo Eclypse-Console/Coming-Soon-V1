@@ -37,12 +37,12 @@ export default function HeroSection() {
           </p>
 
           <h1 className="font-krona font-normal leading-[140%] tracking-[0em] 
-               text-[48px] text-center 
+               text-[48px] text-center
                md:text-[52px] 
                lg:text-[66.22px] lg:text-left 
                bg-gradient-to-r from-[#EEF1F0] to-[#71757E] 
-               bg-clip-text text-transparent ml-[40px] md:ml-[10px]
-               lg:mt-0 mt-5 
+               bg-clip-text text-transparent
+               lg:mt-0 mt-5
                break-words">
             Eclypse
           </h1>
