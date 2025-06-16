@@ -140,18 +140,6 @@ const NewsLetter = () => {
 								/>
 							</div>
 						</div>
-						<div className="lg:hidden w-full flex justify-center lg:mb-4 mt-4 sm:mt-0">
-							{errors.email && (
-								<p className="text-sm text-center font-sora font-light tracking-[0.4em] text-[#9797C2]">
-									{errors.email.message}
-								</p>
-							)}
-							{getStatusMessage() && (
-								<p className={`${getStatusColor()} text-sm text-center mt-2 font-sora font-light tracking-[0.4em] text-[#9797C2]`}>
-									{getStatusMessage()}
-								</p>
-							)}
-						</div>
 						<div className="flex flex-col items-center lg:items-start">
 							<div className="w-full lg:w-auto flex justify-center items-center lg:mt-[-28px]" style={{ height: "57.24px" }}>
 								<button
@@ -165,14 +153,14 @@ const NewsLetter = () => {
 						</div>
 					</div>
 
-					<div className="hidden lg:block justify-start w-72">
+					<div className="w-full flex flex-col items-center mt-4">
 						{errors.email && (
-							<p className=" text-sm mt-2 text-center lg:text-left font-sora font-light tracking-[0.4em] text-[#9797C2]">
+							<p className="text-red-500 text-sm text-center font-sora font-light tracking-[0.4em] text-[#9797C2]">
 								{errors.email.message}
 							</p>
 						)}
 						{getStatusMessage() && !errors.email && (
-							<p className={`${getStatusColor()} text-sm mt-2 text-center lg:text-left font-sora font-light tracking-[0.4em] text-[#9797C2]`}>
+							<p className={`${getStatusColor()} text-sm text-center font-sora font-light tracking-[0.4em] text-[#9797C2]`}>
 								{getStatusMessage()}
 							</p>
 						)}
