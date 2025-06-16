@@ -13,7 +13,8 @@
     "vercel-build": "cd frontend && npm install && npm run build"
   },
   "dependencies": {
-    "glob": "^11.0.2"
+    "glob": "^11.0.2",
+    "sonner": "^2.0.5"
   },
   "engines": {
     "bun": ">=1.0.0"

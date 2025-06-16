@@ -4,6 +4,7 @@ import FlipClock from "./components/FlipClock";
 import HeroSection from "./views/Hero";
 import GlowVectors from "./components/GlowVectors";
 import DualTopographicCanvas from "./components/TopographiCanvas";
+import { Toaster } from "./components/ui/Sonner";
 
 function mainPage() {
 	return <div className="bg-black w-full h-full relative">
@@ -16,8 +17,8 @@ function mainPage() {
 		<FlipClock />
 		<NewsLetter />
 		<Footer />
+		<Toaster />
 		{/* </CustomScrollbar> */}
-
 	</div>
 }
 export default mainPage;
