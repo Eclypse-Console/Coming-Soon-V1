@@ -9,7 +9,8 @@ interface FormData {
 
 const NewsLetter = () => {
 	const [submitStatus, setSubmitStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-	const [isLimitReached, setIsLimitReached] = useState(false);
+	
+	const [isLimitReached] = useState(false);
 
 	const {
 		register,
@@ -169,7 +170,7 @@ const NewsLetter = () => {
 						</div>
 						<div className="lg:hidden w-full flex justify-center lg:mb-4 mt-4 sm:mt-0  ">
 							{errors.email && (
-								<p className="text-red-500 text-sm text-center font-sora font-light tracking-[0.4em] text-[#9797C2]">
+								<p className="text-red-500 text-sm text-center font-sora font-light tracking-[0.4em]">
 									{errors.email.message}
 								</p>
 							)}
@@ -197,7 +198,7 @@ const NewsLetter = () => {
 
 					<div className="hidden lg:block justify-start w-72">
 						{errors.email && (
-							<p className="text-red-500 text-sm mt-2 text-center lg:text-left font-sora font-light tracking-[0.4em] text-[#9797C2]">
+							<p className="text-red-500 text-sm mt-2 text-center lg:text-left font-sora font-light tracking-[0.4em]">
 								{errors.email.message}
 							</p>
 						)}
