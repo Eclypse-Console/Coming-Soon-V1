@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -11,27 +12,26 @@ import { useState, useEffect, useRef } from "react";
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzfqH_wC27ShWEW6yXL-GU_EsRLD6wfZvMXqc01OLh9-hPti9jKKysERcY7G_NQgiT0dQ/exec";
 
 const NewsLetter = () => {
-	const [subscriberCount, setSubscriberCount] = useState<number>(0);
-	const [, setIsLoading] = useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [submitError, setSubmitError] = useState<string>("");
 	const [submitSuccess, setSubmitSuccess] = useState(false);
 	const iframeRef = useRef<HTMLIFrameElement>(null);
 
-	// Add effect to clear success message after 2.5 seconds
+	// Clear success/error messages after timeout
 	useEffect(() => {
 		let timeoutId: NodeJS.Timeout;
-		if (submitSuccess) {
+		if (submitSuccess || submitError) {
 			timeoutId = setTimeout(() => {
 				setSubmitSuccess(false);
-			}, 2500);
+				setSubmitError("");
+			}, 3000);
 		}
 		return () => {
 			if (timeoutId) {
 				clearTimeout(timeoutId);
 			}
 		};
-	}, [submitSuccess]);
+	}, [submitSuccess, submitError]);
 
 	const {
 		register,
@@ -42,152 +42,92 @@ const NewsLetter = () => {
 		resolver: zodResolver(newsletterSchema),
 	});
 
-	// Fetch subscriber count using JSONP with better error handling
-	const fetchSubscriberCount = async () => {
-		setIsLoading(true);
-		try {
-			const callbackName = `jsonp_callback_${Date.now()}_${Math.floor(Math.random() * 10000)}`;
-			let script: HTMLScriptElement;
-			let timeoutId: NodeJS.Timeout;
-
-			const promise = new Promise((resolve, reject) => {
-				
-				timeoutId = setTimeout(() => {
-					cleanup();
-					reject(new Error('Request timeout'));
-				}, 10000); 
-
-				(window as any)[callbackName] = (data: any) => {
-					clearTimeout(timeoutId);
-					cleanup();
-					resolve(data);
-				};
-
-				const cleanup = () => {
-					if ((window as any)[callbackName]) {
-						delete (window as any)[callbackName];
-					}
-					if (script && script.parentNode) {
-						script.parentNode.removeChild(script);
-					}
-				};
-
-				script = document.createElement('script');
-				script.onerror = () => {
-					clearTimeout(timeoutId);
-					cleanup();
-					reject(new Error('JSONP request failed'));
-				};
-
-				script.onload = () => {
-					setTimeout(() => {
-						if ((window as any)[callbackName]) {
-							clearTimeout(timeoutId);
-							cleanup();
-							reject(new Error('Callback not executed'));
-						}
-					}, 1000);
-				};
-
-				script.src = `${GOOGLE_SCRIPT_URL}?type=count&callback=${callbackName}&_=${Date.now()}`;
-				document.head.appendChild(script);
-			});
-
-			const data = await promise;
-			const actualCount = (data as any).count || 0;
-			setSubscriberCount(actualCount);
-
-		} catch (error) {
-			console.error("Failed to fetch subscriber count:", error);
-			// Keep the current count if fetch fails, don't reset to 0
-		} finally {
-			setIsLoading(false);
-		}
-	};
-
-	useEffect(() => {
-		fetchSubscriberCount();
-		// Set up periodic refresh every 10 seconds for more real-time updates
-		const interval = setInterval(fetchSubscriberCount, 10000);
-		return () => clearInterval(interval);
-	}, []); // Added dependency array to prevent infinite re-renders
-
 	const onSubmit = async (data: NewsletterFormData) => {
 		setIsSubmitting(true);
 		setSubmitError("");
 		setSubmitSuccess(false);
 
 		try {
-			// Method 1: Try JSONP first
-			const callbackName = `jsonp_submit_${Date.now()}_${Math.floor(Math.random() * 10000)}`;
-			let script: HTMLScriptElement;
-			let timeoutId: NodeJS.Timeout;
+			// Method 1: Try JSONP first with better error handling
+			const result = await submitViaJsonp(data.email);
 
-			const jsonpPromise = new Promise((resolve, reject) => {
-				timeoutId = setTimeout(() => {
-					cleanup();
-					reject(new Error('Request timeout'));
-				}, 15000);
-
-				(window as any)[callbackName] = (result: any) => {
-					clearTimeout(timeoutId);
-					cleanup();
-					resolve(result);
-				};
-
-				const cleanup = () => {
-					if ((window as any)[callbackName]) {
-						delete (window as any)[callbackName];
-					}
-					if (script && script.parentNode) {
-						script.parentNode.removeChild(script);
-					}
-				};
-
-				script = document.createElement('script');
-				script.onerror = () => {
-					clearTimeout(timeoutId);
-					cleanup();
-					reject(new Error('JSONP request failed'));
-				};
-
-				const encodedEmail = encodeURIComponent(data.email);
-				script.src = `${GOOGLE_SCRIPT_URL}?type=subscribe&email=${encodedEmail}&callback=${callbackName}&_=${Date.now()}`;
-				document.head.appendChild(script);
-			});
-
-			try {
-				const result = await jsonpPromise;
-
-				if ((result as any).success) {
-					console.log("Email stored successfully:", data.email);
-					setSubmitSuccess(true);
-					reset();
-
-					// Immediately refresh count from Google Sheets after successful submission
-					setTimeout(() => fetchSubscriberCount(), 500);
-					// Refresh again after a bit more time to ensure consistency
-					setTimeout(() => fetchSubscriberCount(), 2000);
-				} else {
-					setSubmitError((result as any).error || "Failed to subscribe");
-				}
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			} catch (jsonpError) {
-				console.log("JSONP failed, trying form submission method...");
-
-				// Method 2: Fallback to form submission
-				await submitViaForm(data.email);
+			if (result.success) {
+				console.log("Email stored successfully via JSONP:", result.email || data.email);
+				setSubmitSuccess(true);
+				reset();
+			} else {
+				throw new Error(result.error || "Failed to subscribe");
 			}
 
-		} catch (error) {
-			console.error("Failed to store email:", error);
-			setSubmitError("Network error. Please try again.");
+		} catch (jsonpError) {
+			console.log("JSONP failed, trying form submission method...", jsonpError);
+
+			try {
+				// Method 2: Fallback to form submission
+				await submitViaForm(data.email);
+				console.log("Email stored successfully via form submission");
+				setSubmitSuccess(true);
+				reset();
+			} catch (formError) {
+				console.error("Both methods failed:", { jsonpError, formError });
+				setSubmitError("Failed to subscribe. Please try again.");
+			}
 		} finally {
 			setIsSubmitting(false);
 		}
 	};
 
-	const submitViaForm = async (email: string) => {
+	const submitViaJsonp = async (email: string): Promise<any> => {
+		return new Promise((resolve, reject) => {
+			const callbackName = `jsonp_submit_${Date.now()}_${Math.floor(Math.random() * 10000)}`;
+			let script: HTMLScriptElement;
+			let timeoutId: NodeJS.Timeout;
+
+			const cleanup = () => {
+				if ((window as any)[callbackName]) {
+					delete (window as any)[callbackName];
+				}
+				if (script && script.parentNode) {
+					script.parentNode.removeChild(script);
+				}
+				if (timeoutId) {
+					clearTimeout(timeoutId);
+				}
+			};
+
+			// Set up timeout (increased to 20 seconds)
+			timeoutId = setTimeout(() => {
+				cleanup();
+				reject(new Error('Request timeout'));
+			}, 20000);
+
+			// Set up callback
+			(window as any)[callbackName] = (result: any) => {
+				cleanup();
+				if (result.success) {
+					resolve(result);
+				} else {
+					reject(new Error(result.error || 'Unknown error'));
+				}
+			};
+
+			// Create and configure script
+			script = document.createElement('script');
+			script.onerror = () => {
+				cleanup();
+				reject(new Error('JSONP request failed'));
+			};
+
+			// Add cache busting and proper encoding
+			const encodedEmail = encodeURIComponent(email.trim());
+			const timestamp = Date.now();
+			script.src = `${GOOGLE_SCRIPT_URL}?type=subscribe&email=${encodedEmail}&callback=${callbackName}&_=${timestamp}`;
+
+			document.head.appendChild(script);
+		});
+	};
+
+	const submitViaForm = async (email: string): Promise<void> => {
 		return new Promise<void>((resolve, reject) => {
 			const form = document.createElement('form');
 			form.method = 'POST';
@@ -198,61 +138,84 @@ const NewsLetter = () => {
 			const emailInput = document.createElement('input');
 			emailInput.type = 'hidden';
 			emailInput.name = 'email';
-			emailInput.value = email;
+			emailInput.value = email.trim();
+
+			const typeInput = document.createElement('input');
+			typeInput.type = 'hidden';
+			typeInput.name = 'type';
+			typeInput.value = 'subscribe';
 
 			form.appendChild(emailInput);
+			form.appendChild(typeInput);
 			document.body.appendChild(form);
 
 			const iframe = iframeRef.current;
 			if (iframe) {
-				// eslint-disable-next-line prefer-const
 				let timeoutId: NodeJS.Timeout;
+				let resolved = false;
 
-				const handleLoad = () => {
-					clearTimeout(timeoutId);
-					
-					console.log("Form submitted successfully (assuming success due to CORS)");
-					setSubmitSuccess(true);
-					reset();
-
+				const cleanup = () => {
+					if (timeoutId) {
+						clearTimeout(timeoutId);
+					}
 					iframe.removeEventListener('load', handleLoad);
+					iframe.removeEventListener('error', handleError);
+
 					if (form.parentNode) {
 						document.body.removeChild(form);
 					}
+				};
 
-					// Refresh count from Google Sheets after form submission
-					setTimeout(() => fetchSubscriberCount(), 1000);
-					setTimeout(() => fetchSubscriberCount(), 3000);
+				const handleLoad = () => {
+					if (resolved) return;
+					resolved = true;
+
+					cleanup();
+					console.log("Form submitted successfully");
+
+					// For form submissions, we assume success since we can't read the response
+					// The backend logging will help us debug any actual failures
 					resolve();
 				};
 
 				const handleError = () => {
-					clearTimeout(timeoutId);
-					iframe.removeEventListener('load', handleLoad);
-					iframe.removeEventListener('error', handleError);
-					if (form.parentNode) {
-						document.body.removeChild(form);
-					}
+					if (resolved) return;
+					resolved = true;
+
+					cleanup();
 					reject(new Error('Form submission failed'));
 				};
 
-				// Set up timeout
+				// Set up timeout - longer timeout for form submissions
 				timeoutId = setTimeout(() => {
-					handleError();
-				}, 15000);
+					if (resolved) return;
+					resolved = true;
+
+					cleanup();
+					reject(new Error('Form submission timeout'));
+				}, 25000); // 25 seconds timeout
 
 				iframe.addEventListener('load', handleLoad);
 				iframe.addEventListener('error', handleError);
-				form.submit();
+
+				try {
+					form.submit();
+					console.log("Form submission initiated for email:", email);
+				} catch (submitError) {
+					if (!resolved) {
+						resolved = true;
+						cleanup();
+						reject(new Error('Failed to submit form: ' + submitError));
+					}
+				}
 			} else {
+				if (form.parentNode) {
+					document.body.removeChild(form);
+				}
 				reject(new Error('Iframe not available'));
 			}
 		});
 	};
-
-	// Use only the Google Sheets count, no local state tracking
-	const remainingSpots = Math.max(0, 1000 - subscriberCount);
-	const isLimitReached = remainingSpots === 0;
 
 	const getStatusMessage = () => {
 		if (isSubmitting) {
@@ -264,7 +227,7 @@ const NewsLetter = () => {
 			);
 		}
 		if (submitSuccess) {
-			return "Successfully submitted!";
+			return "Successfully subscribed!";
 		}
 		if (submitError) {
 			return submitError;
@@ -307,7 +270,7 @@ const NewsLetter = () => {
 									inactiveZone={0.01}
 									variant="default"
 									className="rounded-[40.61px]"
-									disabled={isLimitReached}
+									disabled={isSubmitting}
 									borderWidth={2}
 								/>
 								<input
@@ -322,23 +285,23 @@ const NewsLetter = () => {
 										lineHeight: "150%",
 										fontFamily: "SF Pro, sans-serif",
 										fontWeight: "400",
-										cursor: isLimitReached ? "not-allowed" : "text"
+										cursor: isSubmitting ? "not-allowed" : "text"
 									}}
 									className="text-[#FFFFFF] focus:outline-none m-0 opacity-[70%]"
-									placeholder={isLimitReached ? "Limit reached" : "example@email.com"}
+									placeholder="example@email.com"
 									type="email"
-									disabled={isLimitReached || isSubmitting}
+									disabled={isSubmitting}
 								/>
 							</div>
 						</div>
 
 						<div className="lg:hidden w-full flex justify-center mb-4 mt-0">
 							{errors.email && (
-								<p className="text-red-500 text-sm text-center font-sora font-light tracking-[0.4em] text-[#9797C2]">
+								<p className="text-red-500 text-sm text-center font-sora font-light tracking-[0.4em]">
 									{errors.email.message}
 								</p>
 							)}
-							{getStatusMessage() && (
+							{getStatusMessage() && !errors.email && (
 								<p className={`${getStatusColor()} text-sm text-center mt-2 font-sora font-light tracking-[0.4em] text-[#9797C2]`}>
 									{typeof getStatusMessage() === 'string' ? getStatusMessage() : ''}
 								</p>
@@ -353,13 +316,14 @@ const NewsLetter = () => {
 						<div className="w-full lg:w-auto flex justify-center items-center" style={{ height: "57.24px", marginTop: "-12px" }}>
 							<GlowingButton
 								onClick={handleSubmit(onSubmit)}
-								
+
 							/>
 						</div>
 					</div>
+
 					<div className="hidden lg:block justify-start w-72">
 						{errors.email && (
-							<p className="text-red-500 text-sm mt-2 text-center lg:text-left font-sora font-light tracking-[0.4em] text-[#9797C2]">
+							<p className="text-red-500 text-sm mt-2 text-center lg:text-left font-sora font-light tracking-[0.4em]">
 								{errors.email.message}
 							</p>
 						)}
@@ -380,24 +344,22 @@ const NewsLetter = () => {
 
 					<div className="w-full flex flex-col items-center mt-8 gap-2">
 						<p
-							className="text-[#FFFFFF] opacity-100 text-center"
+							className="text-[#FFFFFF] opacity-60 text-center text-[12px] md:text-[14px] lg:text-[16.25px] flex flex-col items-center gap-1"
 							style={{
 								lineHeight: "150%",
-								fontFamily: "SF Pro, sans-serif",
-								fontWeight: "400",
-								fontSize: "16.25px",
+								fontFamily: "Akira Expanded",
+								fontWeight: 400,
 								letterSpacing: "0%",
-								width: "352px",
-								height: "42px",
+								height: "auto",
 								display: "flex",
 								alignItems: "center",
 								justifyContent: "center",
 							}}
 						>
-							Exclusive discounts and premium offers await our first 1,000 subscribers
+							<div>Exclusive discounts and premium</div>
+							<div>offers await our first 1,000</div>
+							<div>subscribers</div>
 						</p>
-
-						
 					</div>
 				</div>
 			</form>
