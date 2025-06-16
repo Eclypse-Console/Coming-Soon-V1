@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -291,7 +292,7 @@ const NewsLetter = () => {
 
 						<div className="lg:hidden w-full flex justify-center mb-4 mt-0">
 							{errors.email && (
-								<p className="text-red-500 text-sm text-center font-sora font-light tracking-[0.4em] text-[#9797C2]">
+								<p className="text-red-500 text-sm text-center font-sora font-light tracking-[0.4em]">
 									{errors.email.message}
 								</p>
 							)}
@@ -312,7 +313,7 @@ const NewsLetter = () => {
 
 					<div className="hidden lg:block justify-start w-72">
 						{errors.email && (
-							<p className="text-red-500 text-sm mt-2 text-center lg:text-left font-sora font-light tracking-[0.4em] text-[#9797C2]">
+							<p className="text-red-500 text-sm mt-2 text-center lg:text-left font-sora font-light tracking-[0.4em]">
 								{errors.email.message}
 							</p>
 						)}
