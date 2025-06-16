@@ -1,0 +1,2 @@
+# In public/_redirects or netlify.toml
+/*    /index.html   200
