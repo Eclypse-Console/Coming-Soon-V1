@@ -9,8 +9,7 @@ interface FormData {
 
 const NewsLetter = () => {
 	const [submitStatus, setSubmitStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-	
-	const [isLimitReached] = useState(false);
+	const [isLimitReached, setIsLimitReached] = useState(false);
 
 	const {
 		register,
@@ -19,64 +18,43 @@ const NewsLetter = () => {
 		reset
 	} = useForm<FormData>();
 
-	const encode = (data: Record<string, string>) => {
-		return Object.keys(data)
-			.map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-			.join("&");
-	};
-
 	const onSubmit = async (data: FormData) => {
-		// Prevent default form submission
 		setSubmitStatus('submitting');
 
 		try {
-			// More robust fetch with timeout and error handling
-			const controller = new AbortController();
-			const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+			// In development, we'll simulate a successful submission
+			if (import.meta.env.DEV) {
+				console.log('Development mode - simulating form submission:', data);
+				setSubmitStatus('success');
+				reset();
+				setTimeout(() => setSubmitStatus('idle'), 3000);
+				return;
+			}
 
+			// In production, submit to Netlify
 			const response = await fetch("/", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/x-www-form-urlencoded",
-					"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
 				},
-				body: encode({
+				body: new URLSearchParams({
 					"form-name": "newsletter-signup",
-					"email": data.email.trim().toLowerCase() // Normalize email
-				}),
-				signal: controller.signal
+					"email": data.email.trim().toLowerCase()
+				}).toString()
 			});
 
-			clearTimeout(timeoutId);
-
-			// Check for successful response (including redirects)
-			if (response.ok || response.status === 302 || response.status === 200) {
+			if (response.ok) {
 				setSubmitStatus('success');
 				reset();
 				setTimeout(() => setSubmitStatus('idle'), 3000);
 			} else {
-				console.error('Response not OK:', response.status, response.statusText);
 				throw new Error(`HTTP error! status: ${response.status}`);
 			}
 		} catch (error) {
 			console.error('Error submitting form:', error);
-
-			// More specific error handling
-			// if (error.name === 'AbortError') {
-			// 	console.error('Form submission timed out');
-			// } else if (error.message.includes('NetworkError') || error.message.includes('Failed to fetch')) {
-			// 	console.error('Network error - possibly offline or connectivity issue');
-			// }
-
 			setSubmitStatus('error');
 			setTimeout(() => setSubmitStatus('idle'), 3000);
 		}
-	};
-
-	// Handle form submission with preventDefault
-	const handleFormSubmit = (e: React.FormEvent) => {
-		e.preventDefault();
-		handleSubmit(onSubmit)(e);
 	};
 
 	const getStatusMessage = () => {
@@ -107,21 +85,15 @@ const NewsLetter = () => {
 
 	return (
 		<div className="relative w-full py-16 px-4 sm:px-6 lg:px-8 z-[110]">
-			{/* Hidden form for Netlify bot detection */}
-			<form name="newsletter-signup" data-netlify="true" style={{ display: 'none' }}>
-				<input type="email" name="email" />
-			</form>
-
 			<form
 				name="newsletter-signup"
 				method="POST"
 				data-netlify="true"
 				data-netlify-honeypot="bot-field"
-				onSubmit={handleFormSubmit}
+				onSubmit={handleSubmit(onSubmit)}
 				className="w-full max-w-4xl mx-auto"
 				noValidate
 			>
-				{/* Hidden inputs for Netlify */}
 				<input type="hidden" name="form-name" value="newsletter-signup" />
 				<input type="hidden" name="bot-field" />
 
@@ -161,16 +133,16 @@ const NewsLetter = () => {
 										cursor: isLimitReached ? "not-allowed" : "text",
 										position: "relative",
 									}}
-									className="text-[#FFFFFF] focus:outline-none m-0 opacity-[70%] px-4 relative z-10 "
+									className="text-[#FFFFFF] focus:outline-none m-0 opacity-[70%] px-4 relative z-10"
 									placeholder={isLimitReached ? "Limit reached" : "example@email.com"}
 									type="email"
 									disabled={isLimitReached || isSubmitting}
 								/>
 							</div>
 						</div>
-						<div className="lg:hidden w-full flex justify-center lg:mb-4 mt-4 sm:mt-0  ">
+						<div className="lg:hidden w-full flex justify-center lg:mb-4 mt-4 sm:mt-0">
 							{errors.email && (
-								<p className="text-red-500 text-sm text-center font-sora font-light tracking-[0.4em]">
+								<p className="text-red-500 text-sm text-center font-sora font-light tracking-[0.4em] text-[#9797C2]">
 									{errors.email.message}
 								</p>
 							)}
@@ -181,7 +153,7 @@ const NewsLetter = () => {
 							)}
 						</div>
 						<div className="flex flex-col items-center lg:items-start">
-							<div className="w-full lg:w-auto flex justify-center items-center lg:mt-[-28px] " style={{ height: "57.24px" }}>
+							<div className="w-full lg:w-auto flex justify-center items-center lg:mt-[-28px]" style={{ height: "57.24px" }}>
 								<button
 									type="submit"
 									disabled={isSubmitting}
@@ -190,15 +162,12 @@ const NewsLetter = () => {
 									<GlowingButton />
 								</button>
 							</div>
-
-
 						</div>
-
 					</div>
 
 					<div className="hidden lg:block justify-start w-72">
 						{errors.email && (
-							<p className="text-red-500 text-sm mt-2 text-center lg:text-left font-sora font-light tracking-[0.4em]">
+							<p className="text-red-500 text-sm mt-2 text-center lg:text-left font-sora font-light tracking-[0.4em] text-[#9797C2]">
 								{errors.email.message}
 							</p>
 						)}
