@@ -155,7 +155,7 @@ const NewsLetter = () => {
 
 					<div className="lg:block w-full flex justify-center">
 						{errors.email && (
-							<p className="text-sm mt-2 text-center font-sora font-light tracking-[0.4em] text-[#9797C2]">
+							<p className="text-sm mt-6 lg:mt-2 text-center font-sora font-light tracking-[0.4em] text-[#9797C2]">
 								{errors.email.message}
 							</p>
 						)}
