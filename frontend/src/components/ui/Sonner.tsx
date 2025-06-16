@@ -1,7 +1,7 @@
 import { Toaster as Sonner } from "sonner"
 
 interface ToasterProps {
-    [key: string]: any
+    [key: string]: unknown
 }
 
 const Toaster = ({ ...props }: ToasterProps) => {
