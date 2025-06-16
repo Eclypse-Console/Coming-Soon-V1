@@ -39,3 +39,10 @@ body,
 	font-weight: 800;
 	font-style: normal;
 }
+
+@font-face {
+	font-family: "Akira";
+	src: url("/fonts/akira/Akira.otf") format("truetype");
+	font-weight: 800;
+	font-style: normal;
+}

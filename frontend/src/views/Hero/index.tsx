@@ -32,20 +32,21 @@ export default function HeroSection() {
           <p className="text-[#9797C2] font-sora font-light leading-[100%] tracking-[0.4em] 
               text-[14px] text-center 
               md:text-[15px] 
-              lg:text-[16px] lg:text-left lg:ml-[16px]">
+              lg:text-[16px] lg:text-left lg:ml-[76px]">
             INTRODUCING
           </p>
 
-          <h1 className="font-krona font-normal leading-[140%] tracking-[0em] 
+          <h1 className="font-akira font-normal leading-[140%] tracking-[0em] 
                text-[48px] text-center 
-               md:text-[52px] 
-               lg:text-[66.22px] lg:text-left 
+               md:text-[38px] 
+               lg:text-[32px] lg:text-left 
+               xl:text-[66.22px]
                bg-gradient-to-r from-[#EEF1F0] to-[#71757E] 
                bg-clip-text text-transparent
                lg:mt-0 mt-5 
-               break-words">
+               break-words lg:ml-[70px]">
             Eclypse
-          </h1>
+</h1>
         </div>
 
         <div className='relative z-[120] lg:hidden block lg:mt-0 mt-48 '>

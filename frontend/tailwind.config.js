@@ -6,6 +6,7 @@ module.exports = {
       fontFamily: {
         akira: ['"Akira Expanded"', "sans-serif"],
         krona: ["Krona One", "sans-serif"],
+        akira1: ["Akira", "sans-serif"],
       },
     },
   },

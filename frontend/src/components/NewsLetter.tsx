@@ -12,7 +12,6 @@ const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzfqH_wC27ShW
 
 const NewsLetter = () => {
 	const [subscriberCount, setSubscriberCount] = useState<number>(0);
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [, setIsLoading] = useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [submitError, setSubmitError] = useState<string>("");

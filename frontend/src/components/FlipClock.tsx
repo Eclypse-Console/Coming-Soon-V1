@@ -246,21 +246,14 @@ const FlipClock: React.FC = () => {
 
 	return (
 		<div className="flex flex-col overlay-effect lg:mt-40">
-			<div
-				className="w-[321px] h-[45px] md:w-[460px] md:h-[65px] lg:w-[571px] lg:h-[80px] flex items-center justify-center mx-auto text-[36px] md:text-[50px] lg:text-[64px] mt-[100px]"
-				style={{
-					fontFamily: "Krona One",
-					fontWeight: 400,
-					lineHeight: "100%",
-					letterSpacing: "-3%",
-					background: "#8C7ABC",
-					WebkitBackgroundClip: "text",
-					backgroundClip: "text",
-					WebkitTextFillColor: "transparent",
-				}}
-			>
-				Coming Soon
-			</div>
+			<h1 className="font-akira font-normal leading-[100%] tracking-[-0.03em]
+                 flex items-center justify-center mx-auto 
+                 text-[36px] md:text-[50px] lg:text-[64px] mt-[10px]
+                 bg-gradient-to-r from-[#8C7ABC] to-[#A68BE8]
+                 bg-clip-text text-transparent
+                 whitespace-nowrap">
+				COMING SOON
+			</h1>
 
 			<motion.div
 				className="flip-clock flex gap-3 md:gap-5 lg:gap-6 items-end justify-center w-full h-full mt-[50px]"
