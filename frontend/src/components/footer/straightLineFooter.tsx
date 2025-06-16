@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
 import type { Breakpoints, OrbitIcon } from "./types";
-
+import { toast } from "sonner";
 interface Props {
   icons: OrbitIcon[];
   breakpoints: Breakpoints;
   className?: string;
 }
+const handleClick = (e: React.MouseEvent) => {
+  e.preventDefault(); // Prevent default link behavior
+  e.stopPropagation(); // Stop event from bubbling up
 
+  toast.success("Page launching Soon", {
+    // description: "Opening Instagram profile...",
+  });
+};
 const StraightLineFooter: React.FC<Props> = ({ icons, className }) => {
   const [activeIcons, setActiveIcons] = useState<number[]>([]);
 
@@ -27,21 +34,21 @@ const StraightLineFooter: React.FC<Props> = ({ icons, className }) => {
 
   return (
     <div
-      className={`flex items-center justify-center gap-8 sm:gap-12 md:gap-16 lg:gap-20 mt-10 ${
-        className ?? ""
-      }`}
+      className={`flex items-center justify-center gap-8 sm:gap-12 md:gap-16 lg:gap-20 mt-10 ${className ?? ""
+        }`}
+
     >
       {icons.map((iconObj, i) => (
         <div
           key={i}
-          className={`${
-            activeIcons.includes(i) ? "opacity-100" : "opacity-0"
-          } transition-opacity duration-500 relative group`}
+          className={`${activeIcons.includes(i) ? "opacity-100" : "opacity-0"
+            } transition-opacity duration-500 relative group`}
         >
           <a
-            target="_blank"
+
             href={iconObj.url}
             className="h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24 lg:h-14 lg:w-14 xl:h-16 xl:w-16 rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 footor-icons"
+            onClick={handleClick}
           >
             {iconObj.icon}
           </a>
