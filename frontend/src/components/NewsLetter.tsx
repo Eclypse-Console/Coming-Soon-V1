@@ -256,7 +256,12 @@ const NewsLetter = () => {
 
 	const getStatusMessage = () => {
 		if (isSubmitting) {
-			return "Submitting... (This usually takes 15 seconds)";
+			return (
+				<div className="flex flex-col items-center whitespace-nowrap">
+					<span>Submitting...</span>
+					<span>(This usually takes 15 seconds)</span>
+				</div>
+			);
 		}
 		if (submitSuccess) {
 			return "Successfully submitted!";
@@ -335,8 +340,13 @@ const NewsLetter = () => {
 							)}
 							{getStatusMessage() && (
 								<p className={`${getStatusColor()} text-sm text-center mt-2 font-sora font-light tracking-[0.4em] text-[#9797C2]`}>
-									{getStatusMessage()}
+									{typeof getStatusMessage() === 'string' ? getStatusMessage() : ''}
 								</p>
+							)}
+							{typeof getStatusMessage() !== 'string' && getStatusMessage() && (
+								<div className={`${getStatusColor()} text-sm text-center mt-2 font-sora font-light tracking-[0.4em] text-[#9797C2]`}>
+									{getStatusMessage()}
+								</div>
 							)}
 						</div>
 
@@ -354,9 +364,17 @@ const NewsLetter = () => {
 							</p>
 						)}
 						{getStatusMessage() && !errors.email && (
-							<p className={`${getStatusColor()} text-sm mt-2 text-center lg:text-left font-sora font-light tracking-[0.4em] text-[#9797C2]`}>
-								{getStatusMessage()}
-							</p>
+							<>
+								{typeof getStatusMessage() === 'string' ? (
+									<p className={`${getStatusColor()} text-sm mt-2 text-center lg:text-left font-sora font-light tracking-[0.4em] text-[#9797C2]`}>
+										{getStatusMessage()}
+									</p>
+								) : (
+									<div className={`${getStatusColor()} text-sm mt-2 text-center lg:text-left font-sora font-light tracking-[0.4em] text-[#9797C2]`}>
+										{getStatusMessage()}
+									</div>
+								)}
+							</>
 						)}
 					</div>
 
