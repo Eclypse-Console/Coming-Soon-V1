@@ -18,6 +18,21 @@ const NewsLetter = () => {
 	const [submitSuccess, setSubmitSuccess] = useState(false);
 	const iframeRef = useRef<HTMLIFrameElement>(null);
 
+	// Add effect to clear success message after 2.5 seconds
+	useEffect(() => {
+		let timeoutId: NodeJS.Timeout;
+		if (submitSuccess) {
+			timeoutId = setTimeout(() => {
+				setSubmitSuccess(false);
+			}, 2500);
+		}
+		return () => {
+			if (timeoutId) {
+				clearTimeout(timeoutId);
+			}
+		};
+	}, [submitSuccess]);
+
 	const {
 		register,
 		handleSubmit,
@@ -241,10 +256,10 @@ const NewsLetter = () => {
 
 	const getStatusMessage = () => {
 		if (isSubmitting) {
-			return "Subscribing...";
+			return "Submitting... (This usually takes 15 seconds)";
 		}
 		if (submitSuccess) {
-			return "Successfully subscribed!";
+			return "Successfully submitted!";
 		}
 		if (submitError) {
 			return submitError;
@@ -314,12 +329,12 @@ const NewsLetter = () => {
 
 						<div className="lg:hidden w-full flex justify-center mb-4 mt-0">
 							{errors.email && (
-								<p className="text-red-500 text-sm text-center">
+								<p className="text-red-500 text-sm text-center font-sora font-light tracking-[0.4em] text-[#9797C2]">
 									{errors.email.message}
 								</p>
 							)}
 							{getStatusMessage() && (
-								<p className={`${getStatusColor()} text-sm text-center mt-2`}>
+								<p className={`${getStatusColor()} text-sm text-center mt-2 font-sora font-light tracking-[0.4em] text-[#9797C2]`}>
 									{getStatusMessage()}
 								</p>
 							)}
@@ -334,12 +349,12 @@ const NewsLetter = () => {
 					</div>
 					<div className="hidden lg:block justify-start w-72">
 						{errors.email && (
-							<p className="text-red-500 text-sm mt-2 text-center lg:text-left">
+							<p className="text-red-500 text-sm mt-2 text-center lg:text-left font-sora font-light tracking-[0.4em] text-[#9797C2]">
 								{errors.email.message}
 							</p>
 						)}
-						{getStatusMessage() && (
-							<p className={`${getStatusColor()} text-sm mt-2 text-center lg:text-left`}>
+						{getStatusMessage() && !errors.email && (
+							<p className={`${getStatusColor()} text-sm mt-2 text-center lg:text-left font-sora font-light tracking-[0.4em] text-[#9797C2]`}>
 								{getStatusMessage()}
 							</p>
 						)}

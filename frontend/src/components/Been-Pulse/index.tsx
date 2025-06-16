@@ -37,19 +37,19 @@ export default function Beem_pulse() {
           <motion.img
             src={EclypseLogo}
             alt="beemSvg"
-            className="centerLogo min-w-[400px] max-w-1/2 absolute mt-[-7px] z-[9] top-1/2 ml-[5px]  "
+            className="centerLogo min-w-[400px] max-w-1/2 absolute mt-[-7px] z-[9] top-1/2 ml-[5px]"
             style={{
               y: "-24%",
-              rotate: rotation,
+              rotate: window.innerWidth >= 768 ? rotation : 0,
             }}
           />
           <motion.img
             src={EclypseLogo}
             alt="beemSvg"
-            className="max-w-1/2 min-w-[400px] absolute mt-[-7px] z-[10] top-1/2 ml-[5px] "
+            className="max-w-1/2 min-w-[400px] absolute mt-[-7px] z-[10] top-1/2 ml-[5px]"
             style={{
               y: "-24%",
-              rotate: rotation,
+              rotate: window.innerWidth >= 768 ? rotation : 0,
             }} />
         </div>
       </div>
