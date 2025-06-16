@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
 import type { Breakpoints, OrbitIcon } from "./types";
 import { toast } from "sonner";
+
 interface Props {
   icons: OrbitIcon[];
   breakpoints: Breakpoints;
   className?: string;
 }
-const handleClick = (e: React.MouseEvent) => {
-  e.preventDefault(); // Prevent default link behavior
-  e.stopPropagation(); // Stop event from bubbling up
 
-  toast.success("Page launching Soon", {
-    // description: "Opening Instagram profile...",
-  });
+const handleClick = (e: React.MouseEvent, index: number, url: string) => {
+  if (index === 0) { // Instagram icon
+    e.preventDefault(); // Prevent default link behavior
+    e.stopPropagation(); // Stop event from bubbling up
+    toast.success("Page launching Soon");
+  }
+  // For LinkedIn and X, let the default link behavior happen (no preventDefault)
 };
+
 const StraightLineFooter: React.FC<Props> = ({ icons, className }) => {
   const [activeIcons, setActiveIcons] = useState<number[]>([]);
 
@@ -48,7 +51,7 @@ const StraightLineFooter: React.FC<Props> = ({ icons, className }) => {
 
             href={iconObj.url}
             className="h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24 lg:h-14 lg:w-14 xl:h-16 xl:w-16 rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 footor-icons"
-            onClick={handleClick}
+            onClick={(e) => handleClick(e, i, iconObj.url)}
           >
             {iconObj.icon}
           </a>
