@@ -27,7 +27,7 @@ const StraightLineFooter: React.FC<Props> = ({ icons, className }) => {
 
   return (
     <div
-      className={`flex items-center justify-center gap-8 sm:gap-12 md:gap-16 lg:gap-20 ${
+      className={`flex items-center justify-center gap-8 sm:gap-12 md:gap-16 lg:gap-20 mt-10 ${
         className ?? ""
       }`}
     >
@@ -46,9 +46,9 @@ const StraightLineFooter: React.FC<Props> = ({ icons, className }) => {
             {iconObj.icon}
           </a>
 
-          <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs sm:text-sm px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none z-50">
+          <div className="absolute bottom-full mb-6 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs sm:text-sm px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none z-50">
             {tooltipMessages[i]}
-            <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+            <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
           </div>
         </div>
       ))}
