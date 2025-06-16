@@ -362,21 +362,21 @@ const NewsLetter = () => {
 
 					<div className="w-full flex flex-col items-center mt-8 gap-2">
 						<p
-							className="text-[#FFFFFF] opacity-100 text-center"
+							className="text-[#FFFFFF] opacity-60 text-center text-[12px] md:text-[14px] lg:text-[16.25px] flex flex-col items-center gap-1"
 							style={{
 								lineHeight: "150%",
-								fontFamily: "SF Pro, sans-serif",
-								fontWeight: "400",
-								fontSize: "16.25px",
+								fontFamily: "Akira Expanded",
+								fontWeight: 400,
 								letterSpacing: "0%",
-								width: "352px",
-								height: "42px",
+								height: "auto",
 								display: "flex",
 								alignItems: "center",
 								justifyContent: "center",
 							}}
 						>
-							Exclusive discounts and premium offers await our first 1,000 subscribers
+							<div>Exclusive discounts and premium</div>
+							<div>offers await our first 1,000</div>
+							<div>subscribers</div>
 						</p>
 
 						
