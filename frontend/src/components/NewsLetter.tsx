@@ -160,7 +160,7 @@ const NewsLetter = () => {
 							</p>
 						)}
 						{getStatusMessage() && !errors.email && (
-							<p className={`${getStatusColor()} text-sm mt-2 text-center font-sora font-light tracking-[0.4em] text-[#9797C2]`}>
+							<p className={`${getStatusColor()} text-sm mt-6 lg:mt-2 text-center font-sora font-light tracking-[0.4em] text-[#9797C2]`}>
 								{getStatusMessage()}
 							</p>
 						)}
