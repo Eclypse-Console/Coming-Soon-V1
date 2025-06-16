@@ -28,7 +28,7 @@ export default function HeroSection() {
     <div className="relative min-h-screen">
       <Beem_pulse />
       <div className='text-white relative lg:absolute w-full flex lg:flex-row flex-col items-center justify-between px-[5%] top-[40%] lg:text-left text-center md:z-[110] md:px-[1%]'>
-        <div className="md:max-w-[48%] sm:mb-32">
+        <div className="md:max-w-[48%] sm:mb-22 -mt-[110px]">
           <p className="text-[#9797C2] font-sora font-light leading-[100%] tracking-[0.4em] 
               text-[14px] text-center 
               md:text-[15px] 
@@ -43,7 +43,7 @@ export default function HeroSection() {
                xl:text-[66.22px]
                bg-gradient-to-r from-[#EEF1F0] to-[#71757E] 
                bg-clip-text text-transparent
-               lg:mt-0 mt-5 
+               lg:mt-0 mt-3 
                break-words lg:ml-[70px]">
             Eclypse
           </h1>
@@ -65,7 +65,7 @@ export default function HeroSection() {
             <br />
             Where discovery feels intuitive, and
             <br />
-            style isn’t worn, it’s felt.
+            style isn't worn, it's felt.
             <br />
             <span className="text-white">Eclypse</span> is an e-commerce platform
             <br />
