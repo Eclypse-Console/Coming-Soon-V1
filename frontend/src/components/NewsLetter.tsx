@@ -126,7 +126,7 @@ const NewsLetter = () => {
 
 				<div className="flex flex-col items-center">
 					<div className="flex flex-col lg:flex-row items-center gap-4 w-full justify-center">
-						<div className="flex flex-col">
+						<div className="flex flex-col items-center">
 							<div className="relative mb-4 border-none" style={{ width: "369px", height: "57.24px" }}>
 								<GlowingEffect
 									spread={50}
@@ -158,9 +158,7 @@ const NewsLetter = () => {
 										fontFamily: "SF Pro, sans-serif",
 										fontWeight: "400",
 										cursor: isLimitReached ? "not-allowed" : "text",
-
 										position: "relative",
-
 									}}
 									className="text-[#FFFFFF] focus:outline-none m-0 opacity-[70%] px-4 relative z-10 "
 									placeholder={isLimitReached ? "Limit reached" : "example@email.com"}
@@ -169,18 +167,7 @@ const NewsLetter = () => {
 								/>
 							</div>
 						</div>
-
-						<div className="w-full lg:w-auto flex justify-center items-center md:align-middle sm:align-middle" style={{ height: "57.24px", marginTop: "-28px" }}>
-							<button
-								type="submit"
-								disabled={isSubmitting}
-								style={{ background: 'none', border: 'none', padding: 0 }}
-							>
-								<GlowingButton />
-							</button>
-						</div>
-
-						<div className="lg:hidden w-full flex justify-center mb-4 mt-0">
+						<div className="lg:hidden w-full flex justify-center lg:mb-4 mt-4 sm:mt-0  ">
 							{errors.email && (
 								<p className="text-red-500 text-sm text-center font-sora font-light tracking-[0.4em] text-[#9797C2]">
 									{errors.email.message}
@@ -192,7 +179,19 @@ const NewsLetter = () => {
 								</p>
 							)}
 						</div>
+						<div className="flex flex-col items-center lg:items-start">
+							<div className="w-full lg:w-auto flex justify-center items-center lg:mt-[-28px] " style={{ height: "57.24px" }}>
+								<button
+									type="submit"
+									disabled={isSubmitting}
+									style={{ background: 'none', border: 'none', padding: 0 }}
+								>
+									<GlowingButton />
+								</button>
+							</div>
 
+
+						</div>
 
 					</div>
 
