@@ -28,7 +28,7 @@ export default function HeroSection() {
     <div className="relative min-h-screen">
       <Beem_pulse />
       <div className='text-white relative lg:absolute w-full flex lg:flex-row flex-col items-center justify-between px-[5%] top-[40%] lg:text-left text-center md:z-[110] md:px-[1%]'>
-        <div className="md:max-w-[48%]">
+        <div className="md:max-w-[48%] sm:mb-32">
           <p className="text-[#9797C2] font-sora font-light leading-[100%] tracking-[0.4em] 
               text-[14px] text-center 
               md:text-[15px] 
@@ -46,10 +46,10 @@ export default function HeroSection() {
                lg:mt-0 mt-5 
                break-words lg:ml-[70px]">
             Eclypse
-</h1>
+          </h1>
         </div>
 
-        <div className='relative z-[120] lg:hidden block lg:mt-0 mt-48 '>
+        <div className='relative z-[120] lg:hidden block lg:mt-0 mt-20 '>
           <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1 1L7 7L13 1" stroke="#F2F2F2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -79,7 +79,7 @@ export default function HeroSection() {
       <button
         onClick={scrollToBottom}
         style={{ opacity }}
-        className="fixed bottom-6 right-6 w-12 h-12 bg-transparent rounded-full transition-opacity duration-500 z-[130] flex items-center justify-center md:flex"
+        className="hidden md:flex fixed bottom-6 right-6 w-12 h-12 bg-transparent rounded-full transition-opacity duration-500 z-[130] items-center justify-center"
         aria-label="Scroll to bottom"
       >
         <img
@@ -88,7 +88,6 @@ export default function HeroSection() {
           className="w-9 h-9"
         />
       </button>
-
     </div>
   );
 }
