@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import GlowingButton from "../styles/GlowingButton";
 import { GlowingEffect } from "../styles/Glowing-effect";
+import { trpc } from "../lib/trpc";
 
 interface FormData {
 	email: string;
@@ -18,43 +19,29 @@ const NewsLetter = () => {
 		reset
 	} = useForm<FormData>();
 
-	const onSubmit = async (data: FormData) => {
-		setSubmitStatus('submitting');
-
-		try {
-			// In development, we'll simulate a successful submission
-			if (import.meta.env.DEV) {
-				console.log('Development mode - simulating form submission:', data);
-				setSubmitStatus('success');
-				reset();
-				setTimeout(() => setSubmitStatus('idle'), 3000);
-				return;
-			}
-
-			// In production, submit to Netlify
-			const response = await fetch("/", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/x-www-form-urlencoded",
-				},
-				body: new URLSearchParams({
-					"form-name": "newsletter-signup",
-					"email": data.email.trim().toLowerCase()
-				}).toString()
-			});
-
-			if (response.ok) {
+	const subscribeMutation = trpc.newsletter.subscribe.useMutation({
+		onSuccess: (result) => {
+			if (result.success) {
 				setSubmitStatus('success');
 				reset();
 				setTimeout(() => setSubmitStatus('idle'), 3000);
 			} else {
-				throw new Error(`HTTP error! status: ${response.status}`);
+				setSubmitStatus('error');
+				setTimeout(() => setSubmitStatus('idle'), 3000);
 			}
-		} catch (error) {
+		},
+		onError: (error) => {
 			console.error('Error submitting form:', error);
 			setSubmitStatus('error');
 			setTimeout(() => setSubmitStatus('idle'), 3000);
-		}
+		},
+	});
+
+	const onSubmit = async (data: FormData) => {
+		setSubmitStatus('submitting');
+		subscribeMutation.mutateAsync({
+			email: data.email.trim().toLowerCase(),
+		});
 	};
 
 	const getStatusMessage = () => {
@@ -140,18 +127,6 @@ const NewsLetter = () => {
 								/>
 							</div>
 						</div>
-						<div className="lg:hidden w-full flex justify-center lg:mb-4 mt-4 sm:mt-0">
-							{errors.email && (
-								<p className="text-sm text-center font-sora font-light tracking-[0.4em] text-[#9797C2]">
-									{errors.email.message}
-								</p>
-							)}
-							{getStatusMessage() && (
-								<p className={`${getStatusColor()} text-sm text-center mt-2 font-sora font-light tracking-[0.4em] text-[#9797C2]`}>
-									{getStatusMessage()}
-								</p>
-							)}
-						</div>
 						<div className="flex flex-col items-center lg:items-start">
 							<div className="w-full lg:w-auto flex justify-center items-center lg:mt-[-28px]" style={{ height: "57.24px" }}>
 								<button
@@ -165,14 +140,14 @@ const NewsLetter = () => {
 						</div>
 					</div>
 
-					<div className="lg:block w-full flex justify-center">
+					<div className="w-full flex justify-center mt-4">
 						{errors.email && (
-							<p className="text-sm mt-2 text-center font-sora font-light tracking-[0.4em] text-[#9797C2]">
+							<p className="text-sm text-center font-sora font-light tracking-[0.4em] text-[#9797C2]">
 								{errors.email.message}
 							</p>
 						)}
 						{getStatusMessage() && !errors.email && (
-							<p className={`${getStatusColor()} text-sm mt-2 text-center font-sora font-light tracking-[0.4em] text-[#9797C2]`}>
+							<p className={`${getStatusColor()} text-sm text-center font-sora font-light tracking-[0.4em] text-[#9797C2]`}>
 								{getStatusMessage()}
 							</p>
 						)}

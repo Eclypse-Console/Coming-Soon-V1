@@ -1,17 +1,15 @@
-import { drizzle } from "drizzle-orm/neon-http";
-import { neon } from "@neondatabase/serverless";
-import * as newsletterSchema from "./schema/newsletter";
+import { neon, neonConfig } from '@neondatabase/serverless';
+import { drizzle } from 'drizzle-orm/neon-http';
+import * as schema from './schema';
 
-const schema = {
-  ...newsletterSchema,
-};
+if (!process.env.DATABASE_URL) {
+  throw new Error('DATABASE_URL environment variable is not set');
+}
 
-const sql = neon(process.env.DATABASE_URL!);
+// Configure neon to use WebSocket
+neonConfig.webSocketConstructor = WebSocket;
+
+const sql = neon(process.env.DATABASE_URL);
 export const db = drizzle(sql, { schema });
 
-
-
-
-
-
-export * from "./schema/newsletter";
+export type DbClient = typeof db; 

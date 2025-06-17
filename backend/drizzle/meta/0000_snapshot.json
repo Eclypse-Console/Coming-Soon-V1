@@ -1,23 +1,17 @@
 {
-  "id": "b3538cb1-aa1f-45c5-9eaa-f984447ce6af",
+  "id": "5dfdfc13-1149-46de-9a5f-7d7b95a56f5f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.newsletter_user": {
-      "name": "newsletter_user",
+    "public.subscribers": {
+      "name": "subscribers",
       "schema": "",
       "columns": {
-        "sr_no": {
-          "name": "sr_no",
+        "id": {
+          "name": "id",
           "type": "serial",
           "primaryKey": true,
-          "notNull": true
-        },
-        "uid": {
-          "name": "uid",
-          "type": "varchar(36)",
-          "primaryKey": false,
           "notNull": true
         },
         "email": {
@@ -25,14 +19,28 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
         }
       },
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "newsletter_user_email_unique": {
-          "name": "newsletter_user_email_unique",
+        "subscribers_email_unique": {
+          "name": "subscribers_email_unique",
           "nullsNotDistinct": false,
           "columns": [
             "email"
