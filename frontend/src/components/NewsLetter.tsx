@@ -142,12 +142,12 @@ const NewsLetter = () => {
 
 					<div className="w-full flex justify-center mt-4">
 						{errors.email && (
-							<p className="text-sm text-center font-sora font-light tracking-[0.4em] text-[#9797C2]">
+							<p className="text-sm mt-6 lg:mt-2 text-center font-sora font-light tracking-[0.4em] text-[#9797C2]">
 								{errors.email.message}
 							</p>
 						)}
 						{getStatusMessage() && !errors.email && (
-							<p className={`${getStatusColor()} text-sm text-center font-sora font-light tracking-[0.4em] text-[#9797C2]`}>
+							<p className={`${getStatusColor()} text-sm mt-6 lg:mt-2 text-center font-sora font-light tracking-[0.4em] text-[#9797C2]`}>
 								{getStatusMessage()}
 							</p>
 						)}
