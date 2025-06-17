@@ -11,7 +11,7 @@ const app = express();
 // Get allowed origins from environment variable or use defaults
 const allowedOrigins = process.env.ALLOWED_ORIGINS 
   ? process.env.ALLOWED_ORIGINS.split(',') 
-  : ['https://eclypse.in', 'https://spontaneous-bubblegum-c16839.netlify.app', 'http://localhost:5173'];
+  : ['https://eclypse.in', 'https://jolly-bunny-a4e7fb.netlify.app/', 'https://spontaneous-bubblegum-c16839.netlify.app', 'http://localhost:5173'];
 
 // Enable CORS
 app.use(cors({
@@ -50,6 +50,15 @@ const appRouter = router({
 app.use('/trpc', createExpressMiddleware({
   router: appRouter,
   createContext,
+  onError: ({ error }) => {
+    console.error('tRPC error:', error);
+  },
+  cors: {
+    origin: allowedOrigins,
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  },
 }));
 
 const port = process.env.PORT || 3000;
