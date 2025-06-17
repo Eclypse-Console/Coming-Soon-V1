@@ -18,7 +18,7 @@ app.use(cors({
 app.use(express.json());
 
 // Add request logging
-app.use((req, res, next) => {
+app.use((req: { method: any; url: any; headers: any; body: any; }, res: any, next: () => void) => {
   console.log(`${req.method} ${req.url}`);
   console.log('Headers:', req.headers);
   console.log('Body:', req.body);
