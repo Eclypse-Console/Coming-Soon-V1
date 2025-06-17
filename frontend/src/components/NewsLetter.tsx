@@ -51,7 +51,7 @@ const NewsLetter = () => {
 			case 'success':
 				return 'Successfully subscribed!';
 			case 'error':
-				return 'Something went wrong. Please try again.';
+				return subscribeMutation.data?.message || 'Something went wrong. Please try again.';
 			default:
 				return '';
 		}
