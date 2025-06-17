@@ -4,7 +4,7 @@ import type { AppRouter } from './server';
 const client = createTRPCProxyClient<AppRouter>({
   links: [
     httpBatchLink({
-      url: 'http://localhost:3000/trpc',
+      url: 'https://spontaneous-bubblegum-c16839.netlify.app//trpc',
     }),
   ],
 });
