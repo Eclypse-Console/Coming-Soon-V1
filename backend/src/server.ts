@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import cors from 'cors';
 import { createExpressMiddleware } from '@trpc/server/adapters/express';
 import { emailRouter } from './routers/email';
@@ -23,6 +23,11 @@ app.use((req: { method: any; url: any; headers: any; body: any; }, res: any, nex
   console.log('Headers:', req.headers);
   console.log('Body:', req.body);
   next();
+});
+
+// Root route handler
+app.get('/', (res: Response) => {
+    console.log('ECLYPSE Backend API is running successfully!');
 });
 
 // Create root router
