@@ -12,7 +12,7 @@
     "paths": {
       "*": ["node_modules/*"]
     },
-    "types": ["node", "bun-types"],
+    "types": ["bun-types"],
     "allowJs": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
