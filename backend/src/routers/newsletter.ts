@@ -19,6 +19,13 @@ export const newsletterRouter = router({
           console.log('Database connection test successful');
         } catch (dbError) {
           console.error('Database connection test failed:', dbError);
+          if (dbError instanceof Error) {
+            console.error('Database error details:', {
+              message: dbError.message,
+              stack: dbError.stack,
+              name: dbError.name
+            });
+          }
           throw new Error('Database connection failed');
         }
 
@@ -35,10 +42,22 @@ export const newsletterRouter = router({
         }
 
         console.log('Attempting to insert new subscriber:', input.email);
-        const result = await db.insert(subscribers).values({
-          email: input.email,
-        });
-        console.log('Insert result:', result);
+        try {
+          const result = await db.insert(subscribers).values({
+            email: input.email,
+          });
+          console.log('Insert result:', result);
+        } catch (insertError) {
+          console.error('Insert error:', insertError);
+          if (insertError instanceof Error) {
+            console.error('Insert error details:', {
+              message: insertError.message,
+              stack: insertError.stack,
+              name: insertError.name
+            });
+          }
+          throw new Error('Failed to insert subscriber');
+        }
 
         return {
           success: true,

@@ -6,11 +6,14 @@ if (!process.env.DATABASE_URL) {
   throw new Error('DATABASE_URL environment variable is not set');
 }
 
-// Configure neon to use WebSocket
-neonConfig.webSocketConstructor = WebSocket;
+// Configure neon to use WebSocket only in development
+if (process.env.NODE_ENV !== 'production') {
+  neonConfig.webSocketConstructor = WebSocket;
+}
 
 // Log database connection attempt
 console.log('Attempting to connect to database...');
+console.log('Database URL:', process.env.DATABASE_URL.replace(/:[^:@]+@/, ':****@')); // Hide password in logs
 
 let db;
 try {
@@ -19,6 +22,13 @@ try {
   console.log('Database connection successful');
 } catch (error) {
   console.error('Database connection error:', error);
+  if (error instanceof Error) {
+    console.error('Error details:', {
+      message: error.message,
+      stack: error.stack,
+      name: error.name
+    });
+  }
   throw new Error('Failed to connect to database');
 }
 
