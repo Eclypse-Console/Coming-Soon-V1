@@ -11,7 +11,7 @@ const app = express();
 // Get allowed origins from environment variable or use defaults
 const allowedOrigins = process.env.ALLOWED_ORIGINS 
   ? process.env.ALLOWED_ORIGINS.split(',') 
-  : ['https://spontaneous-bubblegum-c16839.netlify.app', 'http://localhost:5173'];
+  : ['https://eclypse.in', 'https://spontaneous-bubblegum-c16839.netlify.app', 'http://localhost:5173'];
 
 // Enable CORS
 app.use(cors({
