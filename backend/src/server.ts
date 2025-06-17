@@ -10,7 +10,7 @@ const app = express();
 
 // Enable CORS
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'https://spontaneous-bubblegum-c16839.netlify.app/',
+  origin: ['https://spontaneous-bubblegum-c16839.netlify.app', 'http://localhost:5173'],
   credentials: true,
 }));
 
