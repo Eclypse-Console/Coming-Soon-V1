@@ -9,7 +9,18 @@ if (!process.env.DATABASE_URL) {
 // Configure neon to use WebSocket
 neonConfig.webSocketConstructor = WebSocket;
 
-const sql = neon(process.env.DATABASE_URL);
-export const db = drizzle(sql, { schema });
+// Log database connection attempt
+console.log('Attempting to connect to database...');
 
+let db;
+try {
+  const sql = neon(process.env.DATABASE_URL);
+  db = drizzle(sql, { schema });
+  console.log('Database connection successful');
+} catch (error) {
+  console.error('Database connection error:', error);
+  throw new Error('Failed to connect to database');
+}
+
+export { db };
 export type DbClient = typeof db; 

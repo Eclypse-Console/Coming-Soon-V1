@@ -8,9 +8,14 @@ import { router } from './utils/trpc';
 
 const app = express();
 
+// Get allowed origins from environment variable or use defaults
+const allowedOrigins = process.env.ALLOWED_ORIGINS 
+  ? process.env.ALLOWED_ORIGINS.split(',') 
+  : ['https://spontaneous-bubblegum-c16839.netlify.app', 'http://localhost:5173'];
+
 // Enable CORS
 app.use(cors({
-  origin: ['https://spontaneous-bubblegum-c16839.netlify.app', 'http://localhost:5173'],
+  origin: allowedOrigins,
   credentials: true,
 }));
 
@@ -26,8 +31,13 @@ app.use((req: { method: any; url: any; headers: any; body: any; }, res: any, nex
 });
 
 // Root route handler
-app.get('/', (res: Response) => {
-    console.log('ECLYPSE Backend API is running successfully!');
+app.get('/', (_req: Request, res: Response) => {
+    res.json({ message: 'ECLYPSE Backend API is running successfully!' });
+});
+
+// Health check endpoint
+app.get('/health', (_req: Request, res: Response) => {
+    res.json({ status: 'healthy' });
 });
 
 // Create root router
@@ -44,8 +54,21 @@ app.use('/trpc', createExpressMiddleware({
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
+// Start server with error handling
+const server = app.listen(port, () => {
   console.log(`🚀 Server listening on port ${port}`);
+}).on('error', (error: Error) => {
+  console.error('Failed to start server:', error);
+  process.exit(1);
+});
+
+// Handle graceful shutdown
+process.on('SIGTERM', () => {
+  console.log('SIGTERM received. Shutting down gracefully...');
+  server.close(() => {
+    console.log('Server closed');
+    process.exit(0);
+  });
 });
 
 export type AppRouter = typeof appRouter; 
