@@ -12,44 +12,7 @@ body,
 	position: relative;
 }
 
-.overlay-effect {
-	position: relative;
-}
 
-.overlay-effect::after {
-	content: "";
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	width: 100%;
-	height: 255vh;
-	transform: rotate(180deg);
-	mix-blend-mode: overlay;
-	background: #0303c061;
-	pointer-events: none;
-	z-index: 100;
-	padding: 0;
-}
-
-@media (min-width: 1400px) {
-	.overlay-effect::after {
-		height: 225vh;
-	}
-}
-
-@media (min-width: 1600px) {
-	.overlay-effect::after {
-		height: 227vh;
-	}
-}
-
-@media (min-width: 1680px) {
-	.overlay-effect::after {
-		height: 200vh;
-	}
-}
 
 @font-face {
 	font-family: "Akira Expanded";
@@ -63,4 +26,16 @@ body,
 	src: url("/fonts/akira/Akira.otf") format("truetype");
 	font-weight: 800;
 	font-style: normal;
+}
+
+.page-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	/* height will be set by JS */
+	mix-blend-mode: overlay;
+	background: #0303c061;
+	pointer-events: none;
+	z-index: 100;
 }
