@@ -20,12 +20,12 @@ export default function Beem_pulse() {
             <img
               src={beemSvg}
               alt="beemSvg"
-              className="centerBeam min-w-[1400px] sm:min-w-[1500px] max-w-full "
+              className="centerBeam min-w-[1400px] sm:min-w-[1500px] 2xl:min-w-[120vw] max-w-full "
             />
             <img
               src={beemSvg}
               alt="beemSvg"
-              className="min-w-[1400px] sm:min-w-[1500px] max-w-full absolute  top-1/2 left-1/2 transform -translate-y-1/2 z-[11] -translate-x-1/2"
+              className="min-w-[1400px] sm:min-w-[1500px] 2xl:min-w-[120vw] max-w-full absolute  top-1/2 left-1/2 transform -translate-y-1/2 z-[11] -translate-x-1/2"
             />
           </div>
 
@@ -37,7 +37,7 @@ export default function Beem_pulse() {
           <motion.img
             src={EclypseLogo}
             alt="beemSvg"
-            className="centerLogo min-w-[400px] max-w-1/2 absolute mt-[-7px] z-[9] top-1/2 ml-[5px] mb-0"
+            className="centerLogo min-w-[400px] 2xl:min-w-[600px] max-w-1/2 absolute mt-[-7px] 2xl:mt-[-13px] z-[9] top-1/2 ml-[5px] mb-0"
             style={{
               y: "-24%",
               rotate: window.innerWidth >= 768 ? rotation : 0,
@@ -46,7 +46,7 @@ export default function Beem_pulse() {
           <motion.img
             src={EclypseLogo}
             alt="beemSvg"
-            className="max-w-1/2 min-w-[400px] absolute mt-[-7px] z-[10] top-1/2 ml-[5px]"
+            className="max-w-1/2 min-w-[400px] 2xl:min-w-[600px] absolute mt-[-7px] 2xl:mt-[-13px] z-[10] top-1/2 ml-[5px]"
             style={{
               y: "-24%",
               rotate: window.innerWidth >= 768 ? rotation : 0,
