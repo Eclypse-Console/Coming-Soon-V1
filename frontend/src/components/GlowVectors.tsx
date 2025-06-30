@@ -160,7 +160,7 @@ const GlowVectors: React.FC = () => {
         /* Medium (md) styles */
         @media (min-width: 768px) {
           .glowVector {
-            top: 1600px;
+            top: 1500px;
             left: 120px;
             width: 650px;
             height: 600px;
