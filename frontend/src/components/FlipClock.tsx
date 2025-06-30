@@ -56,6 +56,8 @@ const FlipCard: React.FC<FlipCardProps> = ({ value }) => {
 						}}
 					/>
 
+					<div className="absolute w-full h-px top-1/2 transform -translate-y-px bg-white z-0 shadow-lg" />
+
 					<div
 						className="flip-card-top absolute w-full h-1/2 top-0 flex items-center justify-center overflow-hidden"
 						style={{
@@ -184,8 +186,6 @@ const FlipCard: React.FC<FlipCardProps> = ({ value }) => {
 							</>
 						)}
 					</AnimatePresence>
-
-					<div className="absolute w-full h-px top-1/2 transform -translate-y-px bg-white z-40 shadow-lg" />
 				</div>
 			</div>
 		</div>
