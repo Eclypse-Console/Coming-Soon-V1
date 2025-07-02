@@ -44,7 +44,7 @@ export default function HeroSection() {
                bg-gradient-to-r from-[#EEF1F0] to-[#71757E] 
                bg-clip-text text-transparent
                lg:mt-0 mt-3 
-               break-words lg:ml-[70px]">
+               break-words lg:ml-[75px]">
             Eclypse
           </h1>
         </div>
