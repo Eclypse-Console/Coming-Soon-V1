@@ -5,7 +5,6 @@ import { emailRouter } from './routers/email';
 import { newsletterRouter } from './routers/newsletter';
 import { createContext } from './utils/context';
 import { router } from './utils/trpc';
-import cron from 'node-cron';
 
 const app = express();
 
@@ -41,23 +40,7 @@ app.get('/health', (req: any, res: any) => {
   res.json({ status: 'healthy' });
 });
 
-cron.schedule('*/4 * * * *', async () => {
-  try {
-    // Use the actual deployed URL for health checks
-    const healthUrl = process.env.RENDER_EXTERNAL_URL 
-      ? `${process.env.RENDER_EXTERNAL_URL}/health`
-      : `http://localhost:${port}/health`;
-    
-    const res = await fetch(healthUrl);
-    if (!res.ok) {
-      console.error('Health check failed with status:', res.status);
-    } else {
-      console.log('Health check successful - keeping service warm');
-    }
-  } catch (err) {
-    console.error('Error during health check cron job:', err);
-  }
-});
+
 
 // Create root router
 const appRouter = router({
