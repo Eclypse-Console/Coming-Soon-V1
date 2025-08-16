@@ -202,7 +202,7 @@ const FlipClock: React.FC = () => {
 	useEffect(() => {
 		const calculateCountdown = () => {
 			const now = new Date();
-			const target = new Date("2026-01-01T00:00:00Z");
+			const target = new Date("2026-05-01T00:00:00Z"); // right now may 1st 2026
 
 			if (now >= target) {
 				setTime({
