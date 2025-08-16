@@ -67,7 +67,9 @@ export default function HeroSection() {
             <br />
             style isn't worn, it's felt.
             <br />
-            <span className="text-white">Eclypse</span> is an e-commerce platform
+            <span className="text-white">Eclypse</span> is the first AI powered 
+            <br />
+            Social Commerce platform
             <br />
             in alignment with you.
             <br />

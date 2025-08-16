@@ -7,7 +7,9 @@ export const trpc = createTRPCReact<AppRouter>();
 export const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
-      url: 'https://product-launch-eclypse.onrender.com/trpc',
+      url: import.meta.env.DEV 
+        ? 'http://localhost:3000/trpc'
+        : 'https://product-launch-eclypse.onrender.com/trpc',
     }),
   ],
 });
